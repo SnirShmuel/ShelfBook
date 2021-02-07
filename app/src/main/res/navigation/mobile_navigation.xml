@@ -23,7 +23,7 @@
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
     <fragment
-        android:id="@+id/bookListFragment"
+        android:id="@+id/nav_books_list"
         android:name="com.snir.shelfbook.BookListFragment"
         android:label="fragment_book_list"
         tools:layout="@layout/fragment_book_list" />

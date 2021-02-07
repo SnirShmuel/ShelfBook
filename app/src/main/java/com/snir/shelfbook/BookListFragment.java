@@ -37,7 +37,7 @@ public class BookListFragment extends Fragment {
         list = view.findViewById(R.id.BookList_rv);
         list.hasFixedSize();
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
 
         MyAdapter adapter = new MyAdapter();
