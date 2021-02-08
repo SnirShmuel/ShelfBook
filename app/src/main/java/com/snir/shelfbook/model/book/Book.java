@@ -1,4 +1,4 @@
-package com.snir.shelfbook.model;
+package com.snir.shelfbook.model.book;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;

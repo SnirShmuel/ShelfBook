@@ -1,5 +1,7 @@
 package com.snir.shelfbook.model;
 
+import com.snir.shelfbook.model.book.Book;
+
 import java.util.LinkedList;
 import java.util.List;
 

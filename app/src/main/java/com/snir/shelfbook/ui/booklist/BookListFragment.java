@@ -1,4 +1,4 @@
-package com.snir.shelfbook;
+package com.snir.shelfbook.ui.booklist;
 
 import android.os.Bundle;
 
@@ -11,11 +11,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.snir.shelfbook.model.Book;
+import com.snir.shelfbook.R;
+import com.snir.shelfbook.model.Model;
+import com.snir.shelfbook.model.book.Book;
+import com.snir.shelfbook.model.book.BookModel;
 
 import java.util.List;
 
@@ -42,6 +44,8 @@ public class BookListFragment extends Fragment {
 
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
+
+        data = BookModel.instance.getAllBooks();
 
         adapter.setOnClickListener(new OnItemClickListener() {
             @Override
