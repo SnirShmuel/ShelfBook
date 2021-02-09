@@ -1,13 +1,20 @@
 package com.snir.shelfbook.model.book;
 
+import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
+import androidx.lifecycle.LiveData;
+
+import com.snir.shelfbook.MyApplication;
 import com.snir.shelfbook.model.AppLocalDb;
 
 import java.util.List;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class BookModel {
-    List<Book> data;
+    LiveData<List<Book>> liveData;
 
     public final static BookModel instance = new BookModel();
     public interface Listener<T>{
@@ -20,16 +27,47 @@ public class BookModel {
 
     }
 
-    public List<Book> getAllBooks(){
-        data = AppLocalDb.db.bookDao().getAllBooks();
-        return data;
+    public LiveData<List<Book>> getAllBooks(){
+        liveData = AppLocalDb.db.bookDao().getAllBooks();
+        refreshBookList(null);
+        return liveData;
     }
 
-    public void addBook(Book book){
+    public void addBook(Book book, Listener<Boolean> listener){
+        BookFirebase.addBook(book, listener);
         AppLocalDb.db.bookDao().insertAll(book);
     }
 
     public void deleteBook(Book book){}
 
     public void updateBook(Book book){}
+
+    public void refreshBookList(final CompListener listener){
+        long lastUpdated = MyApplication.context.getSharedPreferences("TAG",MODE_PRIVATE).getLong("BooksLastUpdateDate",0);
+        BookFirebase.getAllBooksSince(lastUpdated,new Listener<List<Book>>() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            public void onComplete(final List<Book> data) {
+                new AsyncTask<String, String, String>(){
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        long lastUpdated = 0;
+                        for(Book b : data){
+                            AppLocalDb.db.bookDao().insertAll(b);
+                            if (b.getLastUpdated() > lastUpdated) b.setLastUpdated(lastUpdated);
+                        }
+                        SharedPreferences.Editor edit = MyApplication.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
+                        edit.putLong("BooksLastUpdateDate",lastUpdated);
+                        edit.apply();
+                        return "";
+                    }
+                    @Override
+                    protected void onPostExecute(String s) {
+                        super.onPostExecute(s);
+                        if (listener!=null)  listener.onComplete();
+                    }
+                }.execute("");
+            }
+        });
+    }
 }

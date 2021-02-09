@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "885293258492",
+    "project_id": "shelfbook-7f80a",
+    "storage_bucket": "shelfbook-7f80a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:885293258492:android:fb92db2a280ddf72a12979",
+        "android_client_info": {
+          "package_name": "com.snir.shelfbook"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "885293258492-002lbrpjmnajlri77dg48l6lkillg6ra.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA2M8DqkKk8_X-aWtsDKPjq8qvC4xH-GcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "885293258492-002lbrpjmnajlri77dg48l6lkillg6ra.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -14,10 +14,37 @@ public class Book {
     private String genre;
     private String imageUrl;
     private String description;
+    private String ownerId;
+    private Boolean isGiven;
+    private long lastUpdated;
 
     @NonNull
     public String getId() {
         return id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public Boolean getGiven() {
+        return isGiven;
+    }
+
+    public long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setGiven(Boolean given) {
+        isGiven = given;
+    }
+
+    public void setLastUpdated(long lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 
     public void setId(@NonNull String id) {

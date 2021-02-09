@@ -1,5 +1,6 @@
 package com.snir.shelfbook.model.book;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -11,7 +12,7 @@ import java.util.List;
 @Dao
 public interface BookDao {
     @Query("select * from Book")
-    List<Book> getAllBooks();
+    LiveData<List<Book>> getAllBooks();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Book... books);
