@@ -10,7 +10,7 @@ import androidx.room.Query;
 @Dao
 public interface UserDao {
     @Query("select * from User")
-    LiveData<User> getAll();
+    LiveData<User> getAllUsers();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(User... users);

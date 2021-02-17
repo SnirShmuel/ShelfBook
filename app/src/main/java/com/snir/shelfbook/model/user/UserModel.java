@@ -26,7 +26,7 @@ public class UserModel {
 
     public LiveData<User> getUser(){
         refreshUser(null);
-        LiveData<User> liveData = AppLocalDb.db.userDao().getAll();
+        LiveData<User> liveData = AppLocalDb.db.userDao().getAllUsers();
         return liveData;
     }
 

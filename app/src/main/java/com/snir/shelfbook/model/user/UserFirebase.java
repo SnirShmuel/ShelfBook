@@ -35,11 +35,11 @@ public class UserFirebase {
 
 
     private static User factory(Map<String, Object> json){
-        User us = new User();
-        us.id = (String) Objects.requireNonNull(json.get("id"));
-        us.username = (String) Objects.requireNonNull(json.get("username"));
-        us.name = (String) Objects.requireNonNull(json.get("name"));
-        us.email = (String) Objects.requireNonNull(json.get("email"));
-        return us;
+        User user = new User();
+        user.setId((String) Objects.requireNonNull(json.get("id")));
+        user.setUsername((String) Objects.requireNonNull(json.get("username")));
+        user.setName((String) Objects.requireNonNull(json.get("name")));
+        user.setEmail((String) Objects.requireNonNull(json.get("email")));
+        return user;
     }
 }

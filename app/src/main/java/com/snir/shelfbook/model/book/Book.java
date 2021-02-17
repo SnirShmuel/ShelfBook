@@ -18,6 +18,7 @@ public class Book {
     private Boolean isGiven;
     private long lastUpdated;
 
+
     @NonNull
     public String getId() {
         return id;
