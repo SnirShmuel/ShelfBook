@@ -26,5 +26,15 @@
         android:id="@+id/nav_books_list"
         android:name="com.snir.shelfbook.ui.booklist.BookListFragment"
         android:label="fragment_book_list"
-        tools:layout="@layout/fragment_book_list" />
+        tools:layout="@layout/fragment_book_list">
+        <action
+            android:id="@+id/action_books_list_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetailsFragment"
+        android:name="com.snir.shelfbook.ui.bookdetail.BookDetailsFragment"
+        android:label="fragment_book_details"
+        tools:layout="@layout/fragment_book_details" >
+    </fragment>
 </navigation>

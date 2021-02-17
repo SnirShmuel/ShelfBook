@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.FieldValue;
@@ -26,7 +27,7 @@ public class BookFirebase {
     public static void getAllBooksSince(long since, final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(since,0);
-        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts)
+        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts).whereEqualTo("isGiven",false)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -55,14 +56,24 @@ public class BookFirebase {
                 if (listener!=null){
                     listener.onComplete(task.isSuccessful());
                     Log.d("TAG", "Book added with ID: " + book.getId());
-
                 }
             }
-        })
+        });
+    }
+
+    public static void deleteBook(String bookId, final BookModel.Listener<Boolean> listener){
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(BOOK_COLLECTION).document(bookId).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        listener.onComplete(true);
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.d("TAG", "Error adding book", e);
+                        listener.onComplete(false);
                     }
                 });
     }

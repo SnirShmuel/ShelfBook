@@ -21,26 +21,26 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:text="Book name"
         android:textAlignment="center"
-        android:textSize="30sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listRow_iv"
-        app:layout_constraintTop_toTopOf="@+id/listRow_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/listRow_idTv" />
 
     <TextView
         android:id="@+id/listRow_decTv"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
         android:text="Book description"
         android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/listRow_idTv"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/listRow_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listRow_iv"
         app:layout_constraintTop_toBottomOf="@+id/listRow_nameTv" />
@@ -53,8 +53,8 @@
         android:layout_marginEnd="16dp"
         android:text="Book ID"
         android:textAlignment="center"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toBottomOf="@+id/listRow_iv"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/listRow_iv" />
+        app:layout_constraintStart_toEndOf="@+id/listRow_iv"
+        app:layout_constraintTop_toTopOf="@+id/listRow_iv" />
 </androidx.constraintlayout.widget.ConstraintLayout>
