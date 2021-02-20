@@ -53,8 +53,8 @@ public class BookListFragment extends Fragment {
                 Log.d("TAG","row was clicked " + position);
                 Book book = data.get(position);
 
-//                BookListFragmentDirections.ActionBooksListToBookDetailsFragment action = BookListFragmentDirections.actionBooksListToBookDetailsFragment();
-//                Navigation.findNavController(view).navigate(action);
+                BookListFragmentDirections.ActionBooksListToBookDetailsFragment action = BookListFragmentDirections.actionBooksListToBookDetailsFragment(book);
+                Navigation.findNavController(view).navigate(action);
             }
         });
 

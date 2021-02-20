@@ -4,15 +4,152 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bookdetail.BookDetailsFragment" >
+    tools:context=".ui.bookdetail.BookDetailsFragment">
+
+    <TextView
+        android:id="@+id/bookDetailes_descriptionTv"
+        android:layout_width="218dp"
+        android:layout_height="204dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:editable="false"
+        android:text="Book description"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookDetailes_imgIv"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_conditionTv" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/bookDetailes_imgIv"
         android:layout_width="160dp"
         android:layout_height="204dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="4dp"
         android:src="@drawable/harry_potter_and_the_philosophers_stone"
+        app:layout_constraintEnd_toStartOf="@+id/bookDetailes_descriptionTv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_conditionTxt" />
+
+    <TextView
+        android:id="@+id/bookDetailes_nameTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="16dp"
+        android:editable="false"
+        android:text="Book name"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/bookDetailes_genreTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="33dp"
+        android:editable="false"
+        android:text="Genre:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookDetailes_conditionTxt"
+        app:layout_constraintEnd_toStartOf="@+id/bookDetailes_genreTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
+
+    <TextView
+        android:id="@+id/bookDetailes_genreTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:editable="false"
+        android:text="Book Genre"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookDetailes_conditionTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bookDetailes_genreTxt"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
+
+    <TextView
+        android:id="@+id/bookDetailes_conditionTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="32dp"
+        android:editable="false"
+        android:text="Book condition"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookDetailes_descriptionTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookDetailes_conditionTxt"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTv" />
+
+    <TextView
+        android:id="@+id/bookDetailes_conditionTxt"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="32dp"
+        android:editable="false"
+        android:text="Condition:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookDetailes_imgIv"
+        app:layout_constraintEnd_toStartOf="@+id/bookDetailes_conditionTv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTxt" />
+
+    <Button
+        android:id="@+id/bookDetailes_deleteBook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Delete book"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookDetailes_editBtn" />
+
+    <Button
+        android:id="@+id/bookDetailes_editBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="Edit book"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bookDetailes_deleteBook"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/bookDetailes_idTv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Book id - remove later"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookDetailes_deleteBook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bookDetailes_descriptionTv" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

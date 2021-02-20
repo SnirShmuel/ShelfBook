@@ -36,5 +36,8 @@
         android:name="com.snir.shelfbook.ui.bookdetail.BookDetailsFragment"
         android:label="fragment_book_details"
         tools:layout="@layout/fragment_book_details" >
+        <argument
+            android:name="book"
+            app:argType="com.snir.shelfbook.model.book.Book" />
     </fragment>
 </navigation>

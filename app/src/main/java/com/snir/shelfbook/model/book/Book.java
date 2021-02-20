@@ -1,11 +1,15 @@
 package com.snir.shelfbook.model.book;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Book {
+@Keep
+public class Book implements Serializable {
     @PrimaryKey
     @NonNull
     private String id;
