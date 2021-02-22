@@ -71,14 +71,14 @@ public class BookListFragment extends Fragment {
         public OnItemClickListener listener;
         TextView bookID;
         TextView bookName;
-        TextView bookDescription;
+        TextView bookCondition;
         int position;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             bookID = itemView.findViewById(R.id.listRow_idTv);
             bookName = itemView.findViewById(R.id.listRow_nameTv);
-            bookDescription = itemView.findViewById(R.id.listRow_decTv);
+            bookCondition = itemView.findViewById(R.id.listRow_condTv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -91,7 +91,7 @@ public class BookListFragment extends Fragment {
         public void bindData(Book book, int position) {
             bookID.setText(book.getId());
             bookName.setText(book.getName());
-            bookDescription.setText(book.getDescription());
+            bookCondition.setText(book.getBookCondition());
             this.position = position;
         }
     }
