@@ -3,10 +3,12 @@ package com.snir.shelfbook.ui.bookdetail;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.snir.shelfbook.R;
@@ -18,7 +20,7 @@ public class BookDetailsFragment extends Fragment {
     TextView bookgenretv;
     TextView bookconditiontv;
     TextView bookdesctv;
-    TextView bookidtv;
+    Button editBtn;
 
     public BookDetailsFragment() {
         // Required empty public constructor
@@ -34,15 +36,21 @@ public class BookDetailsFragment extends Fragment {
         bookgenretv = view.findViewById(R.id.bookDetailes_genreTv);
         bookconditiontv = view.findViewById(R.id.bookDetailes_conditionTv);
         bookdesctv = view.findViewById(R.id.bookDetailes_descriptionTv);
-        bookidtv = view.findViewById(R.id.bookDetailes_idTv);
+        editBtn = view.findViewById(R.id.bookDetailes_editBtn);
         book = BookDetailsFragmentArgs.fromBundle(getArguments()).getBook();
-
         booknametv.setText(book.getName());
         bookgenretv.setText(book.getGenre());
         bookconditiontv.setText(book.getBookCondition());
         bookdesctv.setText(book.getDescription());
-        bookidtv.setText(book.getId());
 
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BookDetailsFragmentDirections.ActionBookDetailsFragmentToBookEditFragment actionToEdit = BookDetailsFragmentDirections.actionBookDetailsFragmentToBookEditFragment(book);
+                Navigation.findNavController(v).navigate(actionToEdit);
+            }
+        });
 
         return view;
     }

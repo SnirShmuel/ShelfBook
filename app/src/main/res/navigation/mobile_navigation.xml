@@ -25,7 +25,7 @@
     <fragment
         android:id="@+id/nav_books_list"
         android:name="com.snir.shelfbook.ui.booklist.BookListFragment"
-        android:label="fragment_book_list"
+        android:label="All Books"
         tools:layout="@layout/fragment_book_list">
         <action
             android:id="@+id/action_books_list_to_bookDetailsFragment"
@@ -34,8 +34,20 @@
     <fragment
         android:id="@+id/bookDetailsFragment"
         android:name="com.snir.shelfbook.ui.bookdetail.BookDetailsFragment"
-        android:label="fragment_book_details"
-        tools:layout="@layout/fragment_book_details" >
+        android:label="Book Details"
+        tools:layout="@layout/fragment_book_details">
+        <argument
+            android:name="book"
+            app:argType="com.snir.shelfbook.model.book.Book" />
+        <action
+            android:id="@+id/action_bookDetailsFragment_to_bookEditFragment"
+            app:destination="@id/bookEditFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookEditFragment"
+        android:name="com.snir.shelfbook.ui.bookedit.bookEditFragment"
+        android:label="Edit Book"
+        tools:layout="@layout/fragment_book_edit">
         <argument
             android:name="book"
             app:argType="com.snir.shelfbook.model.book.Book" />
