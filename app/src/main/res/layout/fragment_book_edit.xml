@@ -1,23 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.bookedit.bookEditFragment" >
+    tools:context=".ui.bookedit.bookEditFragment">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/bookEdit_genreTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="83dp" />
+        android:layout_marginBottom="72dp"
+        android:text="Genre:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_conditionTv"
+        app:layout_constraintEnd_toStartOf="@+id/bookEdit_GenreEv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/bookEdit_GenreEv"
+        android:layout_width="279dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_conditionEv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookEdit_genreTv" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/bookEdit_conditionTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="49dp"
-        tools:layout_editor_absoluteY="163dp" />
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="64dp"
+        android:text="Condition:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_imgBtn"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/bookEdit_nameTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:text="Book name:"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_genreTv"
+        app:layout_constraintEnd_toStartOf="@+id/bookEdit_nameEv"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.302" />
+
+    <ImageButton
+        android:id="@+id/bookEdit_imgBtn"
+        android:layout_width="184dp"
+        android:layout_height="213dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="64dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/harry_potter_and_the_philosophers_stone"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_deleteBtn"
+        app:layout_constraintEnd_toStartOf="@+id/bookEdit_descEv"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/bookEdit_saveEditBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="46dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookEdit_deleteBtn" />
+
+    <Button
+        android:id="@+id/bookEdit_deleteBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="46dp"
+        android:text="Delete"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bookEdit_saveEditBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/bookEdit_nameEv"
+        android:layout_width="221dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_GenreEv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/bookEdit_nameTv"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.268" />
+
+    <EditText
+        android:id="@+id/bookEdit_conditionEv"
+        android:layout_width="239dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="72dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_descEv"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/bookEdit_descEv"
+        android:layout_width="169dp"
+        android:layout_height="205dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="64dp"
+        android:ems="10"
+        android:inputType="textMultiLine"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/bookEdit_saveEditBtn"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
