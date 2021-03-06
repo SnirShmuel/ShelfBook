@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 
@@ -21,6 +22,7 @@ public class bookEditFragment extends Fragment {
     EditText bookDescriptionEv;
     Button saveBtn;
     Button deleteBtn;
+    FloatingActionButton addBookBtn;
 
     public bookEditFragment() {
         // Required empty public constructor
@@ -40,7 +42,9 @@ public class bookEditFragment extends Fragment {
         bookDescriptionEv = view.findViewById(R.id.bookEdit_descEv);
         saveBtn = view.findViewById(R.id.bookEdit_saveEditBtn);
         deleteBtn = view.findViewById(R.id.bookEdit_deleteBtn);
+        addBookBtn = getActivity().findViewById(R.id.fab);
 
+        addBookBtn.setVisibility(View.INVISIBLE);
         bookNameEv.setText(book.getName());
         bookGenreEv.setText(book.getGenre());
         bookConditionEv.setText(book.getBookCondition());

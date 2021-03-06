@@ -35,8 +35,9 @@ public class BookFirebase {
                 if (task.isSuccessful()){
                     bookData = new LinkedList<Book>();
                     for(QueryDocumentSnapshot doc : task.getResult()){
-                        Map<String, Object> json = doc.getData();
-                        Book book = factory(json);
+//                        Map<String, Object> json = doc.getData();
+//                        Book book = factory(json);
+                        Book book = doc.toObject(Book.class);
                         bookData.add(book);
                     }
                 }

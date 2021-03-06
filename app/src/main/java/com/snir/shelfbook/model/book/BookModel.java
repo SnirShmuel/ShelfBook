@@ -38,9 +38,15 @@ public class BookModel {
         AppLocalDb.db.bookDao().insertAll(book);
     }
 
-    public void deleteBook(Book book){}
+    public void deleteBook(Book book, Listener<Boolean> listener){
+        BookFirebase.deleteBook(book.getId(),listener);
+        AppLocalDb.db.bookDao().delete(book);
+    }
 
-    public void updateBook(Book book){}
+    public void updateBook(Book book, Listener<Boolean> listener){
+        BookFirebase.addBook(book, listener);
+        AppLocalDb.db.bookDao().insertAll(book);
+    }
 
     public void refreshBookList(final CompListener listener){
         long lastUpdated = MyApplication.context.getSharedPreferences("TAG",MODE_PRIVATE).getLong("BooksLastUpdateDate",0);

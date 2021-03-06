@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import java.io.Serializable;
 
+//If change something (add or delete) change the version in AppLocalDbRepository
 @Entity
 @Keep
 public class Book implements Serializable {

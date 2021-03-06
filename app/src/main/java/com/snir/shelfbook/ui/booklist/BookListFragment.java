@@ -4,6 +4,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +16,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.Model;
 import com.snir.shelfbook.model.book.Book;
@@ -21,9 +25,10 @@ import com.snir.shelfbook.model.book.Book;
 import java.util.List;
 
 public class BookListFragment extends Fragment {
-
+    BookListViewModel viewModel;
     RecyclerView list;
     List<Book> data;
+    FloatingActionButton addBookBtn;
 
     public BookListFragment() {
         // Required empty public constructor
@@ -34,6 +39,11 @@ public class BookListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_book_list, container, false);
+
+        viewModel = new ViewModelProvider(this).get(BookListViewModel.class);
+
+        addBookBtn = getActivity().findViewById(R.id.fab);
+        addBookBtn.setVisibility(View.VISIBLE);
 
 
         list = view.findViewById(R.id.BookList_rv);
@@ -46,6 +56,13 @@ public class BookListFragment extends Fragment {
         list.setAdapter(adapter);
 
         data = Model.instance.getAllBooks();
+
+        addBookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Navigation.findNavController(view).navigate(R.id.action_nav_books_list_to_bookAddFragment);
+            }
+        });
 
         adapter.setOnClickListener(new OnItemClickListener() {
             @Override

@@ -18,6 +18,10 @@ public class BookListViewModel extends ViewModel {
         return liveData;
     }
 
+
+
+
+
     public void refresh(BookModel.CompListener listener){
         BookModel.instance.refreshBookList(listener);
     }

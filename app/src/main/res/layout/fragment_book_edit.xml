@@ -134,4 +134,5 @@
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/bookEdit_saveEditBtn"
         app:layout_constraintEnd_toEndOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

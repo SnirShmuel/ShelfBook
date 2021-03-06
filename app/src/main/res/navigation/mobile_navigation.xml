@@ -30,6 +30,9 @@
         <action
             android:id="@+id/action_books_list_to_bookDetailsFragment"
             app:destination="@id/bookDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_books_list_to_bookAddFragment"
+            app:destination="@id/bookAddFragment" />
     </fragment>
     <fragment
         android:id="@+id/bookDetailsFragment"
@@ -52,4 +55,9 @@
             android:name="book"
             app:argType="com.snir.shelfbook.model.book.Book" />
     </fragment>
+    <fragment
+        android:id="@+id/bookAddFragment"
+        android:name="com.snir.shelfbook.BookAddFragment"
+        android:label="Add new Book"
+        tools:layout="@layout/fragment_book_add" />
 </navigation>
