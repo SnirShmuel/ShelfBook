@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 import com.snir.shelfbook.MyApplication;
 import com.snir.shelfbook.model.AppLocalDb;
@@ -33,9 +34,19 @@ public class BookModel {
         return liveData;
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void addBook(Book book, Listener<Boolean> listener){
+        book.setId("" + (liveData.getValue().size() + 1));
+
         BookFirebase.addBook(book, listener);
-        AppLocalDb.db.bookDao().insertAll(book);
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                AppLocalDb.db.bookDao().insertAll(book);
+                return "";
+            }
+        }.execute();
+
     }
 
     public void deleteBook(Book book, Listener<Boolean> listener){

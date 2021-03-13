@@ -57,7 +57,7 @@
     </fragment>
     <fragment
         android:id="@+id/bookAddFragment"
-        android:name="com.snir.shelfbook.BookAddFragment"
+        android:name="com.snir.shelfbook.ui.bookadd.BookAddFragment"
         android:label="Add new Book"
         tools:layout="@layout/fragment_book_add" />
 </navigation>

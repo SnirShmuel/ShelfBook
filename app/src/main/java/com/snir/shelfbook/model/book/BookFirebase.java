@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -31,10 +32,9 @@ public class BookFirebase {
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                List<Book> bookData = null;
+                List<Book> bookData = new LinkedList<Book>();
                 if (task.isSuccessful()){
-                    bookData = new LinkedList<Book>();
-                    for(QueryDocumentSnapshot doc : task.getResult()){
+                    for(DocumentSnapshot doc : task.getResult()){
 //                        Map<String, Object> json = doc.getData();
 //                        Book book = factory(json);
                         Book book = doc.toObject(Book.class);
@@ -42,7 +42,10 @@ public class BookFirebase {
                     }
                 }
                 listener.onComplete(bookData);
-                Log.d("TAG","refresh " + bookData.size());
+                if (bookData == null)
+                    Log.d("TAG","refresh " + 0);
+                else
+                    Log.d("TAG","refresh " + bookData.size());
             }
         });
     }
@@ -50,14 +53,28 @@ public class BookFirebase {
 
 
     public static void addBook(Book book, BookModel.Listener<Boolean> listener) {
+//        FirebaseFirestore db = FirebaseFirestore.getInstance();
+//        db.collection(BOOK_COLLECTION).document(book.getId()).set(toJson(book)).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (listener!=null){
+//                    listener.onComplete(task.isSuccessful());
+//                    Log.d("TAG", "Book added with ID: " + book.getId());
+//                }
+//            }
+//        });
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(BOOK_COLLECTION).document(book.getId()).set(toJson(book)).addOnCompleteListener(new OnCompleteListener<Void>() {
+        db.collection(BOOK_COLLECTION).document(book.getId()).set(book.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (listener!=null){
-                    listener.onComplete(task.isSuccessful());
-                    Log.d("TAG", "Book added with ID: " + book.getId());
-                }
+            public void onSuccess(Void aVoid) {
+                Log.d("TAG","Book added successfully!" + book.getId());
+                listener.onComplete(true);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("TAG","Fail adding book");
+                listener.onComplete(false);
             }
         });
     }
@@ -80,32 +97,7 @@ public class BookFirebase {
     }
 
 
-    private static Book factory(Map<String, Object> json) {
-        Book bk = new Book();
-        bk.setId((String)Objects.requireNonNull(json.get("id")));
-        bk.setName((String)json.get("name"));
-        bk.setBookCondition((String)json.get("bookCondition"));
-        bk.setGenre((String)json.get("genre"));
-        bk.setImageUrl((String)json.get("imageUrl"));
-        bk.setDescription((String)json.get("description"));
-        bk.setOwnerId((String)json.get("ownerId"));
-        bk.setGiven((Boolean)json.get("isGiven"));
-        Timestamp ts = (Timestamp)json.get("lastUpdated");
-        if (bk != null) bk.setLastUpdated(ts.getSeconds());
-        return bk;
-    }
 
-    private static Map<String, Object> toJson(Book bk){
-        HashMap<String, Object> result = new HashMap<>();
-        result.put("id", bk.getId());
-        result.put("name", bk.getName());
-        result.put("bookCondition", bk.getBookCondition());
-        result.put("genre", bk.getGenre());
-        result.put("imageUrl", bk.getImageUrl());
-        result.put("description", bk.getDescription());
-        result.put("ownerId", bk.getOwnerId());
-        result.put("isGiven", bk.getGiven());
-        result.put("lastUpdated", FieldValue.serverTimestamp());
-        return result;
-    }
+
+
 }

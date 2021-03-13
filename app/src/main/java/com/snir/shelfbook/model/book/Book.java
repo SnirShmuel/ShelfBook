@@ -5,7 +5,13 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.FieldValue;
+
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 //If change something (add or delete) change the version in AppLocalDbRepository
 @Entity
@@ -22,6 +28,34 @@ public class Book implements Serializable {
     private String ownerId;
     private Boolean isGiven;
     private long lastUpdated;
+
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("id", this.getId());
+        result.put("name", this.getName());
+        result.put("bookCondition", this.getBookCondition());
+        result.put("genre", this.getGenre());
+        result.put("imageUrl", this.getImageUrl());
+        result.put("description", this.getDescription());
+        result.put("ownerId", this.getOwnerId());
+        result.put("isGiven", this.getGiven());
+        result.put("lastUpdated", FieldValue.serverTimestamp());
+        return result;
+    }
+
+    public void fromMap(Map<String, Object> map) {
+        Book bk = new Book();
+        bk.setId((String) Objects.requireNonNull(map.get("id")));
+        bk.setName((String)map.get("name"));
+        bk.setBookCondition((String)map.get("bookCondition"));
+        bk.setGenre((String)map.get("genre"));
+        bk.setImageUrl((String)map.get("imageUrl"));
+        bk.setDescription((String)map.get("description"));
+        bk.setOwnerId((String)map.get("ownerId"));
+        bk.setGiven((Boolean)map.get("isGiven"));
+        Timestamp ts = (Timestamp)map.get("lastUpdated");
+        if (bk != null) bk.setLastUpdated(ts.getSeconds());
+    }
 
 
     @NonNull

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BookAddFragment">
+    tools:context=".ui.bookadd.BookAddFragment">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bookAdd_floatinAddPhoto"
@@ -65,7 +65,7 @@
         android:text="Condition:"
         android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/bookAdd_imgView"
-        app:layout_constraintEnd_toStartOf="@+id/bookAdd_ContEt"
+        app:layout_constraintEnd_toStartOf="@+id/bookAdd_CondEt"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bookAdd_GenreTv" />
@@ -126,13 +126,13 @@
         android:ems="10"
         android:hint="Enter book genre here"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/bookAdd_ContEt"
+        app:layout_constraintBottom_toTopOf="@+id/bookAdd_CondEt"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/bookAdd_GenreTv"
         app:layout_constraintTop_toBottomOf="@+id/bookAdd_bookNameEt" />
 
     <EditText
-        android:id="@+id/bookAdd_ContEt"
+        android:id="@+id/bookAdd_CondEt"
         android:layout_width="221dp"
         android:layout_height="45dp"
         android:layout_marginTop="32dp"
@@ -159,6 +159,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/bookAdd_imgView"
-        app:layout_constraintTop_toBottomOf="@+id/bookAdd_ContEt" />
+        app:layout_constraintTop_toBottomOf="@+id/bookAdd_CondEt" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

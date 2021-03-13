@@ -1,9 +1,12 @@
 package com.snir.shelfbook.ui.booklist;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
@@ -22,16 +25,31 @@ import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.Model;
 import com.snir.shelfbook.model.book.Book;
 
+import java.util.LinkedList;
 import java.util.List;
 
 public class BookListFragment extends Fragment {
     BookListViewModel viewModel;
     RecyclerView list;
-    List<Book> data;
+//    List<Book> data = new LinkedList<>();
     FloatingActionButton addBookBtn;
+//    LiveData<List<Book>> liveData;
+    MyAdapter adapter;
+
 
     public BookListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        viewModel = new ViewModelProvider(this).get(BookListViewModel.class);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
     }
 
     @Override
@@ -52,10 +70,11 @@ public class BookListFragment extends Fragment {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
 
-        MyAdapter adapter = new MyAdapter();
+        adapter = new MyAdapter();
         list.setAdapter(adapter);
 
-        data = Model.instance.getAllBooks();
+//        data = Model.instance.getAllBooks();
+//        liveData = viewModel.getData();
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,10 +87,17 @@ public class BookListFragment extends Fragment {
             @Override
             public void onItemClick(int position) {
                 Log.d("TAG","row was clicked " + position);
-                Book book = data.get(position);
+                Book book = viewModel.getData().getValue().get(position);
 
                 BookListFragmentDirections.ActionBooksListToBookDetailsFragment action = BookListFragmentDirections.actionBooksListToBookDetailsFragment(book);
                 Navigation.findNavController(view).navigate(action);
+            }
+        });
+
+        viewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
+            @Override
+            public void onChanged(List<Book> books) {
+                adapter.notifyDataSetChanged();
             }
         });
 
@@ -131,13 +157,15 @@ public class BookListFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-            Book book = data.get(position);
+            Book book = viewModel.getData().getValue().get(position);
             holder.bindData(book,position);
         }
 
         @Override
         public int getItemCount() {
-            return data.size();
+            if (viewModel.getData().getValue() == null)
+                return 0;
+            return viewModel.getData().getValue().size();
         }
     }
 }
