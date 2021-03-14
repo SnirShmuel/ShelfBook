@@ -9,6 +9,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -53,16 +54,6 @@ public class BookFirebase {
 
 
     public static void addBook(Book book, BookModel.Listener<Boolean> listener) {
-//        FirebaseFirestore db = FirebaseFirestore.getInstance();
-//        db.collection(BOOK_COLLECTION).document(book.getId()).set(toJson(book)).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (listener!=null){
-//                    listener.onComplete(task.isSuccessful());
-//                    Log.d("TAG", "Book added with ID: " + book.getId());
-//                }
-//            }
-//        });
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection(BOOK_COLLECTION).document(book.getId()).set(book.toMap()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -95,9 +86,5 @@ public class BookFirebase {
                     }
                 });
     }
-
-
-
-
 
 }

@@ -47,14 +47,28 @@ public class BookModel {
         }.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void deleteBook(Book book, Listener<Boolean> listener){
         BookFirebase.deleteBook(book.getId(),listener);
-        AppLocalDb.db.bookDao().delete(book);
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                AppLocalDb.db.bookDao().delete(book);
+                return "";
+            }
+        }.execute();
     }
 
+    @SuppressLint("StaticFieldLeak")
     public void updateBook(Book book, Listener<Boolean> listener){
         BookFirebase.addBook(book, listener);
-        AppLocalDb.db.bookDao().insertAll(book);
+        new AsyncTask<String, String, String>() {
+            @Override
+            protected String doInBackground(String... strings) {
+                AppLocalDb.db.bookDao().insertAll(book);
+                return "";
+            }
+        }.execute();
     }
 
     public void refreshBookList(final CompListener listener){

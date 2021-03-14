@@ -3,6 +3,7 @@ package com.snir.shelfbook.ui.bookdetail;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.view.LayoutInflater;
@@ -12,8 +13,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
+import com.snir.shelfbook.model.book.BookModel;
 
 public class BookDetailsFragment extends Fragment {
     Book book;
@@ -67,10 +70,22 @@ public class BookDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                deleteBook(book,v);
             }
         });
 
         return view;
+    }
+
+    private void deleteBook(Book book, View v) {
+
+        BookModel.instance.deleteBook(book, new BookModel.Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+                Snackbar.make(v,book.getName() + "was deleted!",Snackbar.LENGTH_LONG).show();
+                Navigation.findNavController(v).popBackStack();
+            }
+
+        });
     }
 }
