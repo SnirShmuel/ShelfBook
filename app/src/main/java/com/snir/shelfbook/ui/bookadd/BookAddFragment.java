@@ -19,6 +19,8 @@ import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
 
+import java.util.UUID;
+
 public class BookAddFragment extends Fragment {
     FloatingActionButton addBookBtn;
     FloatingActionButton addImgBtn;
@@ -79,6 +81,7 @@ public class BookAddFragment extends Fragment {
 
     private void saveBook(){
         final Book book = new Book();
+        book.setId(UUID.randomUUID().toString());
         book.setName(bookNameEt.getText().toString());
         book.setGenre(bookGenreEt.getText().toString());
         book.setBookCondition(bookConditionEt.getText().toString());

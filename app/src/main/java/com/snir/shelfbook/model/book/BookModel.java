@@ -17,6 +17,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class BookModel {
     LiveData<List<Book>> liveData;
 
+
     public final static BookModel instance = new BookModel();
     public interface Listener<T>{
         void onComplete(T data);
@@ -36,8 +37,6 @@ public class BookModel {
 
     @SuppressLint("StaticFieldLeak")
     public void addBook(Book book, Listener<Boolean> listener){
-        book.setId("" + (liveData.getValue().size() + 1));
-
         BookFirebase.addBook(book, listener);
         new AsyncTask<String, String, String>() {
             @Override
@@ -46,7 +45,6 @@ public class BookModel {
                 return "";
             }
         }.execute();
-
     }
 
     public void deleteBook(Book book, Listener<Boolean> listener){

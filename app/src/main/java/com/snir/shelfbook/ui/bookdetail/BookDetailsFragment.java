@@ -22,6 +22,7 @@ public class BookDetailsFragment extends Fragment {
     TextView bookconditiontv;
     TextView bookdesctv;
     Button editBtn;
+    Button deleteBtn;
     FloatingActionButton addBookBtn;
 
     public BookDetailsFragment() {
@@ -40,6 +41,7 @@ public class BookDetailsFragment extends Fragment {
         bookconditiontv = view.findViewById(R.id.bookDetailes_conditionTv);
         bookdesctv = view.findViewById(R.id.bookDetailes_descriptionTv);
         editBtn = view.findViewById(R.id.bookDetailes_editBtn);
+        deleteBtn = view.findViewById(R.id.bookDetailes_deleteBook);
         book = BookDetailsFragmentArgs.fromBundle(getArguments()).getBook();
         addBookBtn = getActivity().findViewById(R.id.fab);
 
@@ -59,6 +61,13 @@ public class BookDetailsFragment extends Fragment {
             public void onClick(View v) {
                 BookDetailsFragmentDirections.ActionBookDetailsFragmentToBookEditFragment actionToEdit = BookDetailsFragmentDirections.actionBookDetailsFragmentToBookEditFragment(book);
                 Navigation.findNavController(v).navigate(actionToEdit);
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 
