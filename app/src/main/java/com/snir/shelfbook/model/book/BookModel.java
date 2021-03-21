@@ -2,7 +2,9 @@ package com.snir.shelfbook.model.book;
 
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -49,6 +51,12 @@ public class BookModel {
 
     @SuppressLint("StaticFieldLeak")
     public void deleteBook(Book book, Listener<Boolean> listener){
+        BookFirebase.deleteImage(book.getId(), new Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+
+            }
+        });
         BookFirebase.deleteBook(book.getId(),listener);
         new AsyncTask<String, String, String>() {
             @Override
@@ -99,4 +107,13 @@ public class BookModel {
             }
         });
     }
+
+    public void uploadImage(Bitmap imageBmp, String name, final BookModel.Listener<String> listener){
+        BookFirebase.uploadImage(imageBmp,name,listener);
+    }
+
+    public void deleteImage(String name,final BookModel.Listener<Boolean> listener){
+        BookFirebase.deleteImage(name,listener);
+    }
+
 }

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.Model;
 import com.snir.shelfbook.model.book.Book;
+import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -31,9 +33,7 @@ import java.util.List;
 public class BookListFragment extends Fragment {
     BookListViewModel viewModel;
     RecyclerView list;
-//    List<Book> data = new LinkedList<>();
     FloatingActionButton addBookBtn;
-//    LiveData<List<Book>> liveData;
     MyAdapter adapter;
 
 
@@ -73,8 +73,6 @@ public class BookListFragment extends Fragment {
         adapter = new MyAdapter();
         list.setAdapter(adapter);
 
-//        data = Model.instance.getAllBooks();
-//        liveData = viewModel.getData();
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +113,7 @@ public class BookListFragment extends Fragment {
         TextView bookID;
         TextView bookName;
         TextView bookCondition;
+        ImageView bookImage;
         int position;
 
         public MyViewHolder(@NonNull View itemView) {
@@ -122,6 +121,7 @@ public class BookListFragment extends Fragment {
             bookID = itemView.findViewById(R.id.listRow_idTv);
             bookName = itemView.findViewById(R.id.listRow_nameTv);
             bookCondition = itemView.findViewById(R.id.listRow_condTv);
+            bookImage = itemView.findViewById(R.id.listRow_iv);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -135,6 +135,10 @@ public class BookListFragment extends Fragment {
             bookID.setText(book.getId());
             bookName.setText(book.getName());
             bookCondition.setText(book.getBookCondition());
+
+//            if (book.getImageUrl() != null)
+            Picasso.get().load(book.getImageUrl()).placeholder(R.drawable.harry_potter_and_the_philosophers_stone).error(R.drawable.harry_potter_and_the_philosophers_stone).into(bookImage);
+
             this.position = position;
         }
     }
