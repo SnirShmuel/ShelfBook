@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
+import com.squareup.picasso.Picasso;
 
 public class BookDetailsFragment extends Fragment {
     Book book;
@@ -24,6 +26,7 @@ public class BookDetailsFragment extends Fragment {
     TextView bookgenretv;
     TextView bookconditiontv;
     TextView bookdesctv;
+    ImageView bookImgv;
     Button editBtn;
     Button deleteBtn;
     FloatingActionButton addBookBtn;
@@ -43,6 +46,7 @@ public class BookDetailsFragment extends Fragment {
         bookgenretv = view.findViewById(R.id.bookDetailes_genreTv);
         bookconditiontv = view.findViewById(R.id.bookDetailes_conditionTv);
         bookdesctv = view.findViewById(R.id.bookDetailes_descriptionTv);
+        bookImgv = view.findViewById(R.id.bookDetailes_imgIv);
         editBtn = view.findViewById(R.id.bookDetailes_editBtn);
         deleteBtn = view.findViewById(R.id.bookDetailes_deleteBook);
         book = BookDetailsFragmentArgs.fromBundle(getArguments()).getBook();
@@ -57,6 +61,12 @@ public class BookDetailsFragment extends Fragment {
         bookgenretv.setText(book.getGenre());
         bookconditiontv.setText(book.getBookCondition());
         bookdesctv.setText(book.getDescription());
+        Picasso.get()
+                .load(book.getImageUrl())
+                .placeholder(R.drawable.harry_potter_and_the_philosophers_stone)
+                .error(R.drawable.harry_potter_and_the_philosophers_stone)
+                .into(bookImgv);
+
 
 
         editBtn.setOnClickListener(new View.OnClickListener() {
