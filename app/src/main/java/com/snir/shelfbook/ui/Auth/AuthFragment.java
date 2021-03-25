@@ -41,8 +41,7 @@ public class AuthFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 //TODO: nav to register page
-                Log.d("shay", String.valueOf(Navigation.findNavController(v)));
-//                Navigation.findNavController(v).navigate(R.id.action_authFragment_to_registerFragment);
+                Navigation.findNavController(v).navigate(R.id.action_authFragment_to_registerFragment);
                 //startActivity(new Intent(StartActivity.this , RegisterActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
@@ -63,11 +62,11 @@ public class AuthFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        if (FirebaseAuth.getInstance().getCurrentUser() != null){
-            //TODO: nav to home page
-            Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_nav_home);
-//            startActivity(new Intent(StartActivity.this , HomeActivity.class));
-//            finish();
-        }
+//        if (FirebaseAuth.getInstance().getCurrentUser() != null){
+//            //TODO: nav to home page
+//            Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_nav_home);
+////            startActivity(new Intent(StartActivity.this , HomeActivity.class));
+////            finish();
+//        }
     }
 }
