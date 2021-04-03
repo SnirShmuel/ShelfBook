@@ -12,6 +12,7 @@ import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.Model;
 import com.snir.shelfbook.model.book.Book;
+import com.snir.shelfbook.model.book.BookModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.LinkedList;
@@ -35,6 +37,7 @@ public class BookListFragment extends Fragment {
     RecyclerView list;
     FloatingActionButton addBookBtn;
     MyAdapter adapter;
+    SwipeRefreshLayout srl;
 
 
     public BookListFragment() {
@@ -59,6 +62,8 @@ public class BookListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_book_list, container, false);
 
         viewModel = new ViewModelProvider(this).get(BookListViewModel.class);
+
+        srl = view.findViewById(R.id.BookList_swipeRefreshLayout);
 
         addBookBtn = getActivity().findViewById(R.id.fab);
         addBookBtn.setVisibility(View.VISIBLE);
@@ -99,6 +104,14 @@ public class BookListFragment extends Fragment {
             }
         });
 
+        srl.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                srl.setRefreshing(true);
+                reloadData();
+            }
+        });
+
         return view;
     }
 
@@ -136,12 +149,13 @@ public class BookListFragment extends Fragment {
             bookName.setText(book.getName());
             bookCondition.setText(book.getBookCondition());
 
-//            if (book.getImageUrl() != null)
             Picasso.get().load(book.getImageUrl()).placeholder(R.drawable.harry_potter_and_the_philosophers_stone).error(R.drawable.harry_potter_and_the_philosophers_stone).into(bookImage);
 
             this.position = position;
         }
     }
+
+    /////////////////////////////////////////////////////////////
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
         private OnItemClickListener listener;
@@ -171,5 +185,18 @@ public class BookListFragment extends Fragment {
                 return 0;
             return viewModel.getData().getValue().size();
         }
+    }
+
+    ////////////////////////////////////////////////////////
+
+    private void reloadData(){
+        addBookBtn.setEnabled(false);
+        BookModel.instance.refreshBookList(new BookModel.CompListener() {
+            @Override
+            public void onComplete() {
+                addBookBtn.setEnabled(true);
+                srl.setRefreshing(false);
+            }
+        });
     }
 }

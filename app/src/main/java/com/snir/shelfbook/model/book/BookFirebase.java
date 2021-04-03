@@ -32,25 +32,22 @@ public class BookFirebase {
     private static final String BOOK_COLLECTION = "books";
 
 
-    public static void getAllBooksSince(long since, final BookModel.Listener<List<Book>> listener) {
+    public static void getAllBooks(Long lastUpdated, final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Timestamp ts = new Timestamp(since,0);
-        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts).whereEqualTo("isGiven",false)
+        Timestamp ts = new Timestamp(lastUpdated,0);
+        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 List<Book> bookData = new LinkedList<Book>();
                 if (task.isSuccessful()){
                     for(DocumentSnapshot doc : task.getResult()){
-                        Book book = doc.toObject(Book.class);
+                        Book book = new Book();
+                        book.fromMap(doc.getData());
                         bookData.add(book);
                     }
                 }
                 listener.onComplete(bookData);
-                if (bookData == null)
-                    Log.d("TAG","refresh " + 0);
-                else
-                    Log.d("TAG","refresh " + bookData.size());
             }
         });
     }

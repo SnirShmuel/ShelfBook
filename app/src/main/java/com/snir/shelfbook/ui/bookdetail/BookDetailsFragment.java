@@ -92,7 +92,7 @@ public class BookDetailsFragment extends Fragment {
         BookModel.instance.deleteBook(book, new BookModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
-                Snackbar.make(v,book.getName() + "was deleted!",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(v,book.getName() + " was deleted!",Snackbar.LENGTH_LONG).show();
                 Navigation.findNavController(v).popBackStack();
             }
 
