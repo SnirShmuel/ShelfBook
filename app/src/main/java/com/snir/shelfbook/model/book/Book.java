@@ -22,7 +22,7 @@ public class Book implements Serializable {
     private String id;
     private String name;
     private String bookCondition;
-//    private String Author;
+    private String author;
     private String genre;
     private String imageUrl;
     private String description;
@@ -129,5 +129,13 @@ public class Book implements Serializable {
 
     public void setLastUpdated(Long lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

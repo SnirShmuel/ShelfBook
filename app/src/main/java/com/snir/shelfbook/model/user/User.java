@@ -12,7 +12,9 @@ public class User {
     private String username;
     private String name;
     private String email;
-    private long lastUpdated;
+    private String city;
+    private String phone;
+    private Long lastUpdated;
 
     public User() {
     }
@@ -24,6 +26,8 @@ public class User {
         this.setEmail(email);
         this.setLastUpdated(lastUpdated);
     }
+
+
 
     public void setId(@NonNull String id) {
         this.id = id;
@@ -41,8 +45,16 @@ public class User {
         this.email = email;
     }
 
-    public void setLastUpdated(long lastUpdated) {
+    public void setLastUpdated(Long lastUpdated) {
         this.lastUpdated = lastUpdated;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @NonNull
@@ -62,7 +74,15 @@ public class User {
         return email;
     }
 
-    public long getLastUpdated() {
+    public Long getLastUpdated() {
         return lastUpdated;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }
