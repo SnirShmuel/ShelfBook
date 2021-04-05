@@ -1,6 +1,7 @@
 package com.snir.shelfbook.model.book;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
@@ -80,32 +81,55 @@ public class BookModel {
     }
 
     public void refreshBookList(final CompListener listener){
-        long lastUpdated = MyApplication.context.getSharedPreferences("TAG",MODE_PRIVATE).getLong("BooksLastUpdateDate",0);
-        BookFirebase.getAllBooksSince(lastUpdated,new Listener<List<Book>>() {
-            @SuppressLint("StaticFieldLeak")
-            @Override
-            public void onComplete(final List<Book> data) {
-                new AsyncTask<String, String, String>(){
+        //1. get local last update date
+        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        Long lastUpdated = sp.getLong("lastUpdated",0);
+        //2. get all updated record from firebase from the last update date
+        BookFirebase.getAllBooks(lastUpdated, new Listener<List<Book>>() {
                     @Override
-                    protected String doInBackground(String... strings) {
-                        long lastUpdated = 0;
-                        for(Book b : data){
-                            AppLocalDb.db.bookDao().insertAll(b);
-                            if (b.getLastUpdated() > lastUpdated) b.setLastUpdated(lastUpdated);
+                    public void onComplete(List<Book> data) {
+                        //3. insert the new updates to the local db
+                        Long lastU = Long.valueOf(0);
+                        for (Book book: data) {
+                            BookSql.addBook(book,null);
+                            if (book.getLastUpdated()>lastU){
+                                lastU = book.getLastUpdated();
+                            }
                         }
-                        SharedPreferences.Editor edit = MyApplication.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
-                        edit.putLong("BooksLastUpdateDate",lastUpdated);
-                        edit.apply();
-                        return "";
+                        //4. update the local last update date
+                        sp.edit().putLong("lastUpdated", lastU).commit();
+                        //5. return the updates data to the listeners
+                        if(listener != null){
+                            listener.onComplete();
+                        }
                     }
-                    @Override
-                    protected void onPostExecute(String s) {
-                        super.onPostExecute(s);
-                        if (listener!=null)  listener.onComplete();
-                    }
-                }.execute("");
-            }
-        });
+                });
+//        long lastUpdated = MyApplication.context.getSharedPreferences("TAG",MODE_PRIVATE).getLong("BooksLastUpdateDate",0);
+//        BookFirebase.getAllBooksSince(lastUpdated,new Listener<List<Book>>() {
+//            @SuppressLint("StaticFieldLeak")
+//            @Override
+//            public void onComplete(final List<Book> data) {
+//                new AsyncTask<String, String, String>(){
+//                    @Override
+//                    protected String doInBackground(String... strings) {
+//                        long lastUpdated = 0;
+//                        for(Book b : data){
+//                            AppLocalDb.db.bookDao().insertAll(b);
+//                            if (b.getLastUpdated() > lastUpdated) b.setLastUpdated(lastUpdated);
+//                        }
+//                        SharedPreferences.Editor edit = MyApplication.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
+//                        edit.putLong("BooksLastUpdateDate",lastUpdated);
+//                        edit.apply();
+//                        return "";
+//                    }
+//                    @Override
+//                    protected void onPostExecute(String s) {
+//                        super.onPostExecute(s);
+//                        if (listener!=null)  listener.onComplete();
+//                    }
+//                }.execute("");
+//            }
+//        });
     }
 
     public void uploadImage(Bitmap imageBmp, String name, final BookModel.Listener<String> listener){

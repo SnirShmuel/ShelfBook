@@ -22,12 +22,14 @@ public class Book implements Serializable {
     private String id;
     private String name;
     private String bookCondition;
+    private String author;
     private String genre;
     private String imageUrl;
     private String description;
     private String ownerId;
     private Boolean isGiven;
-    private long lastUpdated;
+    private Long lastUpdated;
+
 
     public Map<String, Object> toMap(){
         HashMap<String, Object> result = new HashMap<>();
@@ -44,19 +46,17 @@ public class Book implements Serializable {
     }
 
     public void fromMap(Map<String, Object> map) {
-        Book bk = new Book();
-        bk.setId((String) Objects.requireNonNull(map.get("id")));
-        bk.setName((String)map.get("name"));
-        bk.setBookCondition((String)map.get("bookCondition"));
-        bk.setGenre((String)map.get("genre"));
-        bk.setImageUrl((String)map.get("imageUrl"));
-        bk.setDescription((String)map.get("description"));
-        bk.setOwnerId((String)map.get("ownerId"));
-        bk.setGiven((Boolean)map.get("isGiven"));
+        this.setId((String) Objects.requireNonNull(map.get("id")));
+        this.setName((String)map.get("name"));
+        this.setBookCondition((String)map.get("bookCondition"));
+        this.setGenre((String)map.get("genre"));
+        this.setImageUrl((String)map.get("imageUrl"));
+        this.setDescription((String)map.get("description"));
+        this.setOwnerId((String)map.get("ownerId"));
+        this.setGiven((Boolean)map.get("isGiven"));
         Timestamp ts = (Timestamp)map.get("lastUpdated");
-        if (bk != null) bk.setLastUpdated(ts.getSeconds());
+        this.setLastUpdated(ts.getSeconds());
     }
-
 
     @NonNull
     public String getId() {
@@ -71,20 +71,12 @@ public class Book implements Serializable {
         return isGiven;
     }
 
-    public long getLastUpdated() {
-        return lastUpdated;
-    }
-
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
     public void setGiven(Boolean given) {
         isGiven = given;
-    }
-
-    public void setLastUpdated(long lastUpdated) {
-        this.lastUpdated = lastUpdated;
     }
 
     public void setId(@NonNull String id) {
@@ -129,5 +121,21 @@ public class Book implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Long getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(Long lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
