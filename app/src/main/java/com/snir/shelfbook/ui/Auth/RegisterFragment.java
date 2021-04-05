@@ -25,9 +25,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.snir.shelfbook.R;
+import com.snir.shelfbook.model.user.Global_user;
+import com.snir.shelfbook.model.user.User;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterFragment extends Fragment {
 
@@ -47,11 +52,12 @@ public class RegisterFragment extends Fragment {
     public RegisterFragment() {
         // Required empty public constructor
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view =  inflater.inflate(R.layout.fragment_register, container, false);
+        View view = inflater.inflate(R.layout.fragment_register, container, false);
 
         username = view.findViewById(R.id.username);
         name = view.findViewById(R.id.name);
@@ -82,12 +88,12 @@ public class RegisterFragment extends Fragment {
                 String txtPassword = password.getText().toString();
 
                 if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName)
-                        || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)){
+                        || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
                     Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
-                } else if (txtPassword.length() < 6){
+                } else if (txtPassword.length() < 6) {
                     Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(txtUsername , txtName , txtEmail , txtPassword);
+                    registerUser(txtUsername, txtName, txtEmail, txtPassword);
                 }
             }
         });
@@ -100,17 +106,17 @@ public class RegisterFragment extends Fragment {
         pd.setMessage("Please wait!");
         pd.show();
 
-        mAuth.createUserWithEmailAndPassword(email , password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+        mAuth.createUserWithEmailAndPassword(email, password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
             @Override
             public void onSuccess(AuthResult authResult) {
 
-                HashMap<String , Object> map = new HashMap<>();
-                map.put("name" , name);
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("name", name);
                 map.put("email", email);
-                map.put("username" , username);
-                map.put("id" , mAuth.getCurrentUser().getUid());
-                map.put("bio" , "");
-                map.put("imageurl" , "default");
+                map.put("username", username);
+                map.put("id", mAuth.getCurrentUser().getUid());
+                map.put("bio", "");
+                map.put("imageurl", "default");
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -118,16 +124,26 @@ public class RegisterFragment extends Fragment {
                 db.collection("Users").document(mAuth.getCurrentUser().getUid()).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             pd.dismiss();
                             Toast.makeText(getContext(), "Update the profile " +
                                     "for better expereince", Toast.LENGTH_SHORT).show();
                             // TODO: probably nav to home page
+
+                            db.collection("Users").whereEqualTo("id", FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                    User currentUser = Global_user.getInstance().currentUser;
+                                    for (QueryDocumentSnapshot doc : task.getResult()) {
+                                        Map<String, Object> json = doc.getData();
+
+                                        currentUser.setUsername((String) json.get("username"));
+                                        currentUser.setEmail((String) json.get("email"));
+                                    }
+                                }
+                            });
                             Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_nav_home);
-//                            Intent intent = new Intent(RegisterActivity.this , HomeActivity.class);
-//                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//                            startActivity(intent);
-//                            finish();
                         }
                     }
                 });
@@ -137,7 +153,7 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onFailure(@NonNull Exception e) {
                 pd.dismiss();
-                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_LONG).show();
             }
         });
 
