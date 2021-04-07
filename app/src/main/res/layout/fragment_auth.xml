@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Auth.AuthFragment"
+    android:background="#272E34"
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:shadowColor="#00bcd3"
+            android:text="ShelfBook"
+            android:textColor="#00bcd3"
+            android:textColorHighlight="#00bcd3"
+            android:textColorHint="#00bcd3"
+            android:textSize="35sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="169dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:shadowColor="#eeeeee"
+            android:text="Get new book to your shelf"
+            android:textColor="#eeeeee"
+            android:textColorHighlight="#eeeeee"
+            android:textColorHint="#eeeeee"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:id="@+id/linear_layout">
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#1dd577"
+            android:text="Log In"
+            android:textAllCaps="false" />
+
+        <androidx.legacy.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="10dp"/>
+
+        <Button
+            android:id="@+id/register"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:backgroundTint="#1dd577"
+            android:text="Register"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</RelativeLayout>

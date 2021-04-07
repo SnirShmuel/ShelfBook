@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#272E34"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="12dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.Auth.RegisterFragment">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:shadowColor="#00bcd3"
+        android:text="Register"
+        android:textColor="#00bcd3"
+        android:textColorHighlight="#00bcd3"
+        android:textColorHint="#00bcd3"
+        android:textSize="35sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Username"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee"
+        android:textColorLink="#eeeeee" />
+
+    <EditText
+        android:id="@+id/name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Name"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Email"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:hint="Password"
+        android:padding="10dp"
+        android:password="true"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15sp"
+        android:backgroundTint="#1dd577"
+        android:padding="10dp"
+        android:text="REGISTER" />
+
+    <TextView
+        android:id="@+id/login_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Already a user? LogIn"
+        android:textColor="#eeeeee" />
+
+</LinearLayout>

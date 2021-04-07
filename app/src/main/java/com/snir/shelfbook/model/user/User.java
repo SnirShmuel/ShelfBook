@@ -3,7 +3,7 @@ package com.snir.shelfbook.model.user;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
+//If change something (add or delete) change the version in AppLocalDbRepository
 @Entity
 public class User {
     @PrimaryKey
@@ -17,6 +17,7 @@ public class User {
     private Long lastUpdated;
 
     public User() {
+
     }
 
     public User(String id, String username, String name, String email,long lastUpdated) {
