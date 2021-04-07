@@ -17,18 +17,10 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="95dp"
-        android:layout_height="69dp"
+        android:layout_height="68dp"
         android:contentDescription="@string/nav_header_desc"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         app:srcCompat="@drawable/logo_book_icon" />
-
-    <TextView
-        android:id="@+id/humburger_username_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:text="@string/nav_header_title"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -38,13 +30,30 @@
             android:id="@+id/humburger_email_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/nav_header_subtitle" />
+            android:text="@string/nav_header_subtitle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/humburger_logout_btn_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/logout"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/humburger_username_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="2dp"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:text="@string/nav_header_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:layout_constraintBottom_toTopOf="@+id/humburger_email_id"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

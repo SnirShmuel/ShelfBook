@@ -3,58 +3,64 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="#808080"
+    android:backgroundTint="#717171">
 
     <ImageView
         android:id="@+id/listRow_iv"
         android:layout_width="186dp"
         android:layout_height="171dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/listRow_nameTv"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/harry_potter_and_the_philosophers_stone" />
 
     <TextView
         android:id="@+id/listRow_nameTv"
-        android:layout_width="0dp"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
         android:text="Book name"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/listRow_condTv"
         app:layout_constraintStart_toEndOf="@+id/listRow_iv"
-        app:layout_constraintTop_toBottomOf="@+id/listRow_idTv" />
+        app:layout_constraintTop_toTopOf="@+id/listRow_iv"
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/listRow_condTv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="194dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="15dp"
         android:text="Book condition"
         android:textAlignment="center"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/listRow_iv"
+        android:textColor="#FFFFFF"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/listRow_giverCityTv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listRow_iv"
         app:layout_constraintTop_toBottomOf="@+id/listRow_nameTv" />
 
     <TextView
-        android:id="@+id/listRow_idTv"
-        android:layout_width="0dp"
+        android:id="@+id/listRow_giverCityTv"
+        android:layout_width="194dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="Book ID"
+        android:layout_marginStart="17dp"
+        android:layout_marginEnd="15dp"
+        android:text="Giver city"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/listRow_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/listRow_iv"
-        app:layout_constraintTop_toTopOf="@+id/listRow_iv" />
+        app:layout_constraintTop_toBottomOf="@+id/listRow_condTv" />
 </androidx.constraintlayout.widget.ConstraintLayout>

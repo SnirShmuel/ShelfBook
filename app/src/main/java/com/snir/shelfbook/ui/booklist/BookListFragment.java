@@ -5,10 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -22,14 +20,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
-import com.snir.shelfbook.model.Model;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
 import com.squareup.picasso.Picasso;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class BookListFragment extends Fragment {
@@ -123,7 +118,7 @@ public class BookListFragment extends Fragment {
 
     class MyViewHolder extends RecyclerView.ViewHolder{
         public OnItemClickListener listener;
-        TextView bookID;
+        TextView giverCity;
         TextView bookName;
         TextView bookCondition;
         ImageView bookImage;
@@ -131,7 +126,7 @@ public class BookListFragment extends Fragment {
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            bookID = itemView.findViewById(R.id.listRow_idTv);
+            giverCity = itemView.findViewById(R.id.listRow_giverCityTv);
             bookName = itemView.findViewById(R.id.listRow_nameTv);
             bookCondition = itemView.findViewById(R.id.listRow_condTv);
             bookImage = itemView.findViewById(R.id.listRow_iv);
@@ -145,7 +140,7 @@ public class BookListFragment extends Fragment {
         }
 
         public void bindData(Book book, int position) {
-            bookID.setText(book.getId());
+            giverCity.setText(book.getId());
             bookName.setText(book.getName());
             bookCondition.setText(book.getBookCondition());
 
