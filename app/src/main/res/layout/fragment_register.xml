@@ -89,6 +89,4 @@
         android:text="Already a user? LogIn"
         android:textColor="#eeeeee" />
 
-
-
 </LinearLayout>
