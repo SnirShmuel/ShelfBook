@@ -1,21 +1,19 @@
 package com.snir.shelfbook.model.book;
 
-import android.annotation.SuppressLint;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
-import android.util.Log;
+
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
+
 
 import com.snir.shelfbook.MyApplication;
 import com.snir.shelfbook.model.AppLocalDb;
 
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
 
 public class BookModel {
     LiveData<List<Book>> liveData;
@@ -38,46 +36,25 @@ public class BookModel {
         return liveData;
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void addBook(Book book, Listener<Boolean> listener){
         BookFirebase.addBook(book, listener);
-        new AsyncTask<String, String, String>() {
-            @Override
-            protected String doInBackground(String... strings) {
-                AppLocalDb.db.bookDao().insertAll(book);
-                return "";
-            }
-        }.execute();
+        BookSql.addBook(book, null);
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void deleteBook(Book book, Listener<Boolean> listener){
-        BookFirebase.deleteImage(book.getId(), new Listener<Boolean>() {
+        deleteImage(book.getId(), new Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
 
             }
         });
         BookFirebase.deleteBook(book.getId(),listener);
-        new AsyncTask<String, String, String>() {
-            @Override
-            protected String doInBackground(String... strings) {
-                AppLocalDb.db.bookDao().delete(book);
-                return "";
-            }
-        }.execute();
+        BookSql.deleteBook(book,null);
     }
 
-    @SuppressLint("StaticFieldLeak")
     public void updateBook(Book book, Listener<Boolean> listener){
         BookFirebase.addBook(book, listener);
-        new AsyncTask<String, String, String>() {
-            @Override
-            protected String doInBackground(String... strings) {
-                AppLocalDb.db.bookDao().insertAll(book);
-                return "";
-            }
-        }.execute();
+        BookSql.addBook(book,null);
     }
 
     public void refreshBookList(final CompListener listener){
@@ -104,32 +81,6 @@ public class BookModel {
                         }
                     }
                 });
-//        long lastUpdated = MyApplication.context.getSharedPreferences("TAG",MODE_PRIVATE).getLong("BooksLastUpdateDate",0);
-//        BookFirebase.getAllBooksSince(lastUpdated,new Listener<List<Book>>() {
-//            @SuppressLint("StaticFieldLeak")
-//            @Override
-//            public void onComplete(final List<Book> data) {
-//                new AsyncTask<String, String, String>(){
-//                    @Override
-//                    protected String doInBackground(String... strings) {
-//                        long lastUpdated = 0;
-//                        for(Book b : data){
-//                            AppLocalDb.db.bookDao().insertAll(b);
-//                            if (b.getLastUpdated() > lastUpdated) b.setLastUpdated(lastUpdated);
-//                        }
-//                        SharedPreferences.Editor edit = MyApplication.context.getSharedPreferences("TAG", MODE_PRIVATE).edit();
-//                        edit.putLong("BooksLastUpdateDate",lastUpdated);
-//                        edit.apply();
-//                        return "";
-//                    }
-//                    @Override
-//                    protected void onPostExecute(String s) {
-//                        super.onPostExecute(s);
-//                        if (listener!=null)  listener.onComplete();
-//                    }
-//                }.execute("");
-//            }
-//        });
     }
 
     public void uploadImage(Bitmap imageBmp, String name, final BookModel.Listener<String> listener){
