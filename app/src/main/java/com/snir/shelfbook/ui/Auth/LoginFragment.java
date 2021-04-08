@@ -1,6 +1,7 @@
 package com.snir.shelfbook.ui.Auth;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -42,6 +43,7 @@ public class LoginFragment extends Fragment {
     private EditText password;
     private Button login;
     private TextView registerUser;
+    ProgressDialog pd;
 
     private FirebaseAuth mAuth;
 
@@ -62,6 +64,7 @@ public class LoginFragment extends Fragment {
         login = view.findViewById(R.id.login);
         registerUser = view.findViewById(R.id.register_user);
         mAuth = FirebaseAuth.getInstance();
+        pd = new ProgressDialog(getContext());
 
         registerUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,36 +94,21 @@ public class LoginFragment extends Fragment {
     }
 
     private void loginUser(String email, String password) {
-
+        pd.setMessage("Please wait!");
+        pd.show();
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(getContext(), "Update the profile " +
-                            "for better experience", Toast.LENGTH_SHORT).show();
-
-                    //Get user form firebase
-                    FirebaseFirestore db = FirebaseFirestore.getInstance();
-                    db.collection("Users").whereEqualTo("id", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            User currentUser = Global_user.getInstance().currentUser;
-                            for (QueryDocumentSnapshot doc : task.getResult()) {
-                                Map<String, Object> json = doc.getData();
-
-                                currentUser.setUsername((String) json.get("username"));
-                                currentUser.setEmail((String) json.get("email"));
-                            }
-                            //nav to home page of application
-                            Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_nav_home);
-                        }
-                    });
+                    pd.dismiss();
+                    //nav to home page of application
+                    Navigation.findNavController(getView()).navigate(R.id.action_loginFragment_to_nav_home);
                 }
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
+                pd.dismiss();
                 Toast.makeText(getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });

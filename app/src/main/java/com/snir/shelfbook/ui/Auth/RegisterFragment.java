@@ -128,21 +128,7 @@ public class RegisterFragment extends Fragment {
                             pd.dismiss();
                             Toast.makeText(getContext(), "Update the profile " +
                                     "for better expereince", Toast.LENGTH_SHORT).show();
-                            // TODO: probably nav to home page
 
-                            db.collection("Users").whereEqualTo("id", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    User currentUser = Global_user.getInstance().currentUser;
-                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                        Map<String, Object> json = doc.getData();
-
-                                        currentUser.setUsername((String) json.get("username"));
-                                        currentUser.setEmail((String) json.get("email"));
-                                    }
-                                }
-                            });
                             Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_nav_home);
                         }
                     }

@@ -13,9 +13,11 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.snir.shelfbook.model.user.Global_user;
 import com.snir.shelfbook.model.user.User;
+import com.snir.shelfbook.model.user.UserModel;
 
 import androidx.core.view.GravityCompat;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_books_list)
+                R.id.myProfileFragment, R.id.nav_gallery, R.id.nav_slideshow, R.id.nav_books_list)
                 .setDrawerLayout(drawer)
                 .build();
 
@@ -82,11 +84,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        User curreUser = Global_user.getInstance().currentUser;
-        TextView humburgerUsername = findViewById(R.id.humburger_username_id);
-        humburgerUsername.setText(curreUser.getUsername());
-        TextView humburgerEmail = findViewById(R.id.humburger_email_id);
-        humburgerEmail.setText(curreUser.getEmail());
+        UserModel.instance.getUser(new UserModel.Listener<User>() {
+            @Override
+            public void onComplete(User data) {
+                TextView humburgerUsername = findViewById(R.id.humburger_username_id);
+                humburgerUsername.setText(data.getUsername());
+                TextView humburgerEmail = findViewById(R.id.humburger_email_id);
+                humburgerEmail.setText(data.getEmail());
+            }
+        });
+
+
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }

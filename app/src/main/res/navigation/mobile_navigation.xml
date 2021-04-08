@@ -99,4 +99,9 @@
             android:id="@+id/action_authFragment_to_nav_home"
             app:destination="@id/nav_home" />
     </fragment>
+    <fragment
+        android:id="@+id/myProfileFragment"
+        android:name="com.snir.shelfbook.ui.profilePage.MyProfileFragment"
+        android:label="fragment_my_profile"
+        tools:layout="@layout/fragment_my_profile" />
 </navigation>

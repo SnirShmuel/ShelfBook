@@ -24,10 +24,14 @@ public class UserModel {
     }
 
 
-    public LiveData<User> getUser(){
-        refreshUser(null);
-        LiveData<User> liveData = AppLocalDb.db.userDao().getAllUsers();
-        return liveData;
+//    public LiveData<User> getUser(){
+//        refreshUser(null);
+//        LiveData<User> liveData = AppLocalDb.db.userDao().getAllUsers();
+//        return liveData;
+//    }
+
+    public void getUser(UserModel.Listener<User> listener){
+        UserFirebase.getUser(FirebaseAuth.getInstance().getCurrentUser().getUid(),listener);
     }
 
     public void refreshUser(final UserModel.CompListener listener){
@@ -53,5 +57,9 @@ public class UserModel {
                 }.execute("");
             }
         });
+    }
+
+    public void updateUserDetails(User user,Listener<User> listener){
+        UserFirebase.updateDetails(user,listener);
     }
 }
