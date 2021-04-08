@@ -144,7 +144,7 @@ public class BookListFragment extends Fragment {
             bookName.setText(book.getName());
             bookCondition.setText(book.getBookCondition());
 
-            Picasso.get().load(book.getImageUrl()).placeholder(R.drawable.harry_potter_and_the_philosophers_stone).error(R.drawable.harry_potter_and_the_philosophers_stone).into(bookImage);
+            Picasso.get().load(book.getImageUrl()).placeholder(R.drawable.jabbascript).error(R.drawable.jabbascript).into(bookImage);
 
             this.position = position;
         }

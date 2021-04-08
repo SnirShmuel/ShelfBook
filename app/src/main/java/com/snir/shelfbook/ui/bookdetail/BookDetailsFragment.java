@@ -63,8 +63,8 @@ public class BookDetailsFragment extends Fragment {
         bookdesctv.setText(book.getDescription());
         Picasso.get()
                 .load(book.getImageUrl())
-                .placeholder(R.drawable.harry_potter_and_the_philosophers_stone)
-                .error(R.drawable.harry_potter_and_the_philosophers_stone)
+                .placeholder(R.drawable.jabbascript)
+                .error(R.drawable.jabbascript)
                 .into(bookImgv);
 
 
