@@ -23,21 +23,20 @@ public class UserFirebase {
 
     public static void getUser(String id, final UserModel.Listener<User> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(QUESTION_COLLECTION).whereEqualTo("id", id)
-                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                User user = null;
-                if (task.isSuccessful()){
-                    user = new User();
-                    for(QueryDocumentSnapshot doc : task.getResult()){
-                        Map<String, Object> json = doc.getData();
-                        user = factory(json);
-                    }
-                }
-                listener.onComplete(user);
-            }
-        });
+       synchronized (UserFirebase.class){
+           db.collection(QUESTION_COLLECTION).whereEqualTo("id", id)
+                   .get().addOnCompleteListener((task)->{
+               User user = null;
+               if (task.isSuccessful()){
+                   user = new User();
+                   for(QueryDocumentSnapshot doc : task.getResult()){
+                       Map<String, Object> json = doc.getData();
+                       user = factory(json);
+                   }
+               }
+               listener.onComplete(user);
+           });
+       }
     }
 
 
@@ -45,8 +44,11 @@ public class UserFirebase {
         User user = new User();
         user.setId((String) Objects.requireNonNull(json.get("id")));
         user.setUsername((String) Objects.requireNonNull(json.get("username")));
+        user.setPassword((String) Objects.requireNonNull(json.get("password")));
         user.setName((String) Objects.requireNonNull(json.get("name")));
         user.setEmail((String) Objects.requireNonNull(json.get("email")));
+        user.setCity((String) Objects.requireNonNull(json.get("city")));
+        user.setPhone((String) Objects.requireNonNull(json.get("phone")));
         return user;
     }
 
@@ -55,6 +57,7 @@ public class UserFirebase {
         DocumentReference userRef = db.collection(QUESTION_COLLECTION).document(FirebaseAuth.getInstance().getCurrentUser().getUid());
         Map<String,Object> updates = new HashMap<>();
         updates.put("username", user.getUsername());
+        updates.put("password",user.getPassword());
         updates.put("name", user.getName());
         updates.put("email", user.getEmail());
         updates.put("city", user.getCity());

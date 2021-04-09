@@ -10,6 +10,7 @@ public class User {
     @NonNull
     private String id;
     private String username;
+    private String password;
     private String name;
     private String email;
     private String city;
@@ -20,15 +21,16 @@ public class User {
 
     }
 
-    public User(String id, String username, String name, String email,long lastUpdated) {
+    public User(String id, String username,String password ,String name, String email, String city, String phone, long lastUpdated) {
         this.setId(id);
         this.setUsername(username);
+        this.setPassword(password);
         this.setName(name);
         this.setEmail(email);
+        this.setCity(city);
+        this.setPhone(phone);
         this.setLastUpdated(lastUpdated);
     }
-
-
 
     public void setId(@NonNull String id) {
         this.id = id;
@@ -37,6 +39,8 @@ public class User {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public  void setPassword(String password){ this.password = password; }
 
     public void setName(String name) {
         this.name = name;
@@ -66,6 +70,8 @@ public class User {
     public String getUsername() {
         return username;
     }
+
+    public String getPassword(){ return  password;}
 
     public String getName() {
         return name;

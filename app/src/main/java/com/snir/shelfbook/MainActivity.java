@@ -11,13 +11,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.snir.shelfbook.model.user.Global_user;
+import com.snir.shelfbook.model.user.LoginUser;
 import com.snir.shelfbook.model.user.User;
 import com.snir.shelfbook.model.user.UserModel;
 
-import androidx.core.view.GravityCompat;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.LiveData;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -84,16 +81,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onSupportNavigateUp() {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        UserModel.instance.getUser(new UserModel.Listener<User>() {
-            @Override
-            public void onComplete(User data) {
-                TextView humburgerUsername = findViewById(R.id.humburger_username_id);
-                humburgerUsername.setText(data.getUsername());
-                TextView humburgerEmail = findViewById(R.id.humburger_email_id);
-                humburgerEmail.setText(data.getEmail());
-            }
-        });
 
+        TextView humburgerUsername = findViewById(R.id.humburger_username_id);
+        humburgerUsername.setText(LoginUser.getUser().userData.getUsername());
+        TextView humburgerEmail = findViewById(R.id.humburger_email_id);
+        humburgerEmail.setText(LoginUser.getUser().userData.getEmail());
 
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();

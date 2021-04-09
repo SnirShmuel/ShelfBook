@@ -15,7 +15,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="30dp"
         android:shadowColor="#00bcd3"
         android:text="Register"
         android:textColor="#00bcd3"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/username"
+        android:id="@+id/register_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -39,7 +39,7 @@
         android:textColorLink="#eeeeee" />
 
     <EditText
-        android:id="@+id/name"
+        android:id="@+id/register_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -50,18 +50,20 @@
         android:textColorHint="#eeeeee" />
 
     <EditText
-        android:id="@+id/email"
+        android:id="@+id/register_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:ems="10"
         android:hint="Email"
-        android:padding="10dp"
         android:textColor="#eeeeee"
         android:textColorHighlight="#eeeeee"
-        android:textColorHint="#eeeeee" />
+        android:textColorHint="#eeeeee"
+        android:inputType="textEmailAddress"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"/>
 
     <EditText
-        android:id="@+id/password"
+        android:id="@+id/register_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -72,8 +74,32 @@
         android:textColorHighlight="#eeeeee"
         android:textColorHint="#eeeeee" />
 
+    <EditText
+        android:id="@+id/register_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="City"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee"/>
+
+    <EditText
+        android:id="@+id/register_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Phone"
+        android:textColor="#eeeeee"
+        android:textColorHighlight="#eeeeee"
+        android:textColorHint="#eeeeee"
+        android:inputType="phone"
+        android:layout_marginTop="15dp"
+        android:padding="10dp"/>
+
     <Button
-        android:id="@+id/register"
+        android:id="@+id/registerBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
@@ -82,7 +108,7 @@
         android:text="REGISTER" />
 
     <TextView
-        android:id="@+id/login_user"
+        android:id="@+id/login_user_link"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"

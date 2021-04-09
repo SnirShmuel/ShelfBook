@@ -17,12 +17,14 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.BookModel;
+import com.snir.shelfbook.model.user.LoginUser;
 import com.snir.shelfbook.model.user.User;
 import com.snir.shelfbook.model.user.UserModel;
 
 public class MyProfileFragment extends Fragment {
     User user;
     EditText username;
+    EditText password;
     EditText name;
     EditText email;
     EditText city;
@@ -41,11 +43,23 @@ public class MyProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
+        user = LoginUser.getUser().userData;
+
         username = view.findViewById(R.id.profile_username_edit);
+        username.setText(user.getUsername());
+
+        password = view.findViewById(R.id.profile_password_edit);
+        password.setText(user.getPassword());
+
         name = view.findViewById(R.id.profile_name_edit);
+        name.setText(user.getName());
         email = view.findViewById(R.id.profile_email_edit);
-        city = view.findViewById(R.id.profile_email_edit);
-        phone = view.findViewById(R.id.profile_city_edit);
+        email.setText(user.getEmail());
+        city = view.findViewById(R.id.profile_city_edit);
+        city.setText(user.getCity());
+        phone = view.findViewById(R.id.profile_phone_edit);
+        phone.setText(user.getPhone());
+
         editBtn = view.findViewById(R.id.profile_edit_button);
         logoutBtn = view.findViewById(R.id.profile_logout_button);
 
@@ -76,6 +90,8 @@ public class MyProfileFragment extends Fragment {
 //            book.setName(bookNameEv.getText().toString());
         if (!(username.getText().toString().isEmpty()) && (!username.getText().toString().equals(user.getUsername())))
             user.setUsername(username.getText().toString());
+        if (!(password.getText().toString().isEmpty()) && (!password.getText().toString().equals(user.getPassword())))
+            user.setPassword(password.getText().toString());
         if (!(name.getText().toString().isEmpty()) && (!name.getText().toString().equals(user.getName())))
             user.setName(name.getText().toString());
         if (!(email.getText().toString().isEmpty()) && (!email.getText().toString().equals(user.getEmail())))
@@ -88,7 +104,7 @@ public class MyProfileFragment extends Fragment {
         UserModel.instance.updateUserDetails(user, new UserModel.Listener<User>() {
             @Override
             public void onComplete(User data) {
-
+                LoginUser.getUser().setUserData(data);
             }
         });
     }
