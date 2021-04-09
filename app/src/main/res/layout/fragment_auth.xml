@@ -52,7 +52,7 @@
         android:id="@+id/linear_layout">
 
         <Button
-            android:id="@+id/login"
+            android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:backgroundTint="#1dd577"
@@ -64,7 +64,7 @@
             android:layout_height="10dp"/>
 
         <Button
-            android:id="@+id/register"
+            android:id="@+id/registerBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:backgroundTint="#1dd577"

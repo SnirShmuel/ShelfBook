@@ -1,12 +1,10 @@
 package com.snir.shelfbook.ui.Auth;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
@@ -24,15 +22,14 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.snir.shelfbook.R;
-import com.snir.shelfbook.model.user.Global_user;
+import com.snir.shelfbook.model.user.LoginUser;
 import com.snir.shelfbook.model.user.User;
+import com.snir.shelfbook.model.user.UserModel;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class RegisterFragment extends Fragment {
 
@@ -40,8 +37,10 @@ public class RegisterFragment extends Fragment {
     private EditText name;
     private EditText email;
     private EditText password;
-    private Button register;
-    private TextView loginUser;
+    private EditText city;
+    private EditText phone;
+    private Button registerBtn;
+    private TextView loginUserLink;
 
 //    private DatabaseReference mRootRef;
 
@@ -59,41 +58,43 @@ public class RegisterFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_register, container, false);
 
-        username = view.findViewById(R.id.username);
-        name = view.findViewById(R.id.name);
-        email = view.findViewById(R.id.email);
-        password = view.findViewById(R.id.password);
-        register = view.findViewById(R.id.register);
-        loginUser = view.findViewById(R.id.login_user);
-        //TODO: what is this
-//        mRootRef = FirebaseDatabase.getInstance().getReference();
+        username = view.findViewById(R.id.register_username);
+        name = view.findViewById(R.id.register_name);
+        email = view.findViewById(R.id.register_email);
+        password = view.findViewById(R.id.register_password);
+        city = view.findViewById(R.id.register_city);
+        phone = view.findViewById(R.id.register_phone);
+        registerBtn = view.findViewById(R.id.registerBtn);
+        loginUserLink = view.findViewById(R.id.login_user_link);
         mAuth = FirebaseAuth.getInstance();
         pd = new ProgressDialog(getContext());
 
-        loginUser.setOnClickListener(new View.OnClickListener() {
+        loginUserLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: nav to login page
+                //nav to login page
                 Navigation.findNavController(v).navigate(R.id.action_registerFragment_to_loginFragment);
-                //startActivity(new Intent(RegisterActivity.this , LoginActivity.class));
             }
         });
 
-        register.setOnClickListener(new View.OnClickListener() {
+        registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String txtUsername = username.getText().toString();
                 String txtName = name.getText().toString();
                 String txtEmail = email.getText().toString();
                 String txtPassword = password.getText().toString();
+                String txtCity = city.getText().toString();
+                String txtPhone = phone.getText().toString();
 
-                if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName)
-                        || TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword)) {
+                if (TextUtils.isEmpty(txtUsername) || TextUtils.isEmpty(txtName) ||
+                        TextUtils.isEmpty(txtEmail) || TextUtils.isEmpty(txtPassword) ||
+                        TextUtils.isEmpty(txtCity) || TextUtils.isEmpty(txtPhone)) {
                     Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
                 } else if (txtPassword.length() < 6) {
                     Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
                 } else {
-                    registerUser(txtUsername, txtName, txtEmail, txtPassword);
+                    registerUser(txtUsername, txtName, txtEmail, txtPassword,txtCity,txtPhone);
                 }
             }
         });
@@ -101,7 +102,7 @@ public class RegisterFragment extends Fragment {
         return view;
     }
 
-    private void registerUser(final String username, final String name, final String email, String password) {
+    private void registerUser(final String username, final String name, final String email, String password,String city,String phone) {
 
         pd.setMessage("Please wait!");
         pd.show();
@@ -111,39 +112,23 @@ public class RegisterFragment extends Fragment {
             public void onSuccess(AuthResult authResult) {
 
                 HashMap<String, Object> map = new HashMap<>();
+                map.put("id", mAuth.getCurrentUser().getUid());
+                map.put("username", username);
                 map.put("name", name);
                 map.put("email", email);
-                map.put("username", username);
-                map.put("id", mAuth.getCurrentUser().getUid());
-                map.put("bio", "");
-                map.put("imageurl", "default");
+                map.put("city", city);
+                map.put("phone", phone);
 
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-
 
                 db.collection("Users").document(mAuth.getCurrentUser().getUid()).set(map).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
                             pd.dismiss();
-                            Toast.makeText(getContext(), "Update the profile " +
-                                    "for better expereince", Toast.LENGTH_SHORT).show();
-                            // TODO: probably nav to home page
-
-                            db.collection("Users").whereEqualTo("id", FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                @Override
-                                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                    User currentUser = Global_user.getInstance().currentUser;
-                                    for (QueryDocumentSnapshot doc : task.getResult()) {
-                                        Map<String, Object> json = doc.getData();
-
-                                        currentUser.setUsername((String) json.get("username"));
-                                        currentUser.setEmail((String) json.get("email"));
-                                    }
-                                }
-                            });
-                            Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_nav_home);
+                            User user = new User(mAuth.getCurrentUser().getUid(),username,password,name,email,city,phone, System.currentTimeMillis());
+                            LoginUser.getUser().setUserData(user);
+                            Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_myProfileFragment);
                         }
                     }
                 });
