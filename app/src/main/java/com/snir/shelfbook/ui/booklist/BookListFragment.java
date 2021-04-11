@@ -22,7 +22,10 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
+import com.snir.shelfbook.model.book.BookFirebase;
 import com.snir.shelfbook.model.book.BookModel;
+import com.snir.shelfbook.model.user.User;
+import com.snir.shelfbook.model.user.UserModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -140,7 +143,13 @@ public class BookListFragment extends Fragment {
         }
 
         public void bindData(Book book, int position) {
-            giverCity.setText(book.getId());
+            BookFirebase.getOwnerData(book.getOwnerId(), new UserModel.Listener<User>() {
+                @Override
+                public void onComplete(User data) {
+                    giverCity.setText(data.getCity());
+                }
+            });
+
             bookName.setText(book.getName());
             bookCondition.setText(book.getBookCondition());
 

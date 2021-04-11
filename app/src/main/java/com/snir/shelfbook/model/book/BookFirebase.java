@@ -20,6 +20,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.snir.shelfbook.model.user.User;
+import com.snir.shelfbook.model.user.UserFirebase;
+import com.snir.shelfbook.model.user.UserModel;
 
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -132,6 +135,14 @@ public class BookFirebase {
                 // Uh-oh, an error occurred!
                 Log.d("DELETE IMAGE", "onFailure: "+imagesRef+" didn't delete , please try again");
                 listener.onComplete(false);
+            }
+        });
+    }
+    public static void getOwnerData(String ownerId, UserModel.Listener<User> listener){
+        UserFirebase.getUser(ownerId, new UserModel.Listener<User>() {
+            @Override
+            public void onComplete(User data) {
+                listener.onComplete(data);
             }
         });
     }

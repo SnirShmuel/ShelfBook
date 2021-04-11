@@ -25,6 +25,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
+import com.snir.shelfbook.model.user.LoginUser;
 
 import java.util.UUID;
 
@@ -149,6 +150,7 @@ public class BookAddFragment extends Fragment {
         book.setBookCondition(bookConditionEt.getText().toString());
         book.setDescription(bookDescEt.getText().toString());
         book.setGiven(false);
+        book.setOwnerId(LoginUser.getUser().userData.getId());
 
         BitmapDrawable drawable = (BitmapDrawable)bookImg.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

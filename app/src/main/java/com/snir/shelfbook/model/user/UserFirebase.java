@@ -23,7 +23,6 @@ public class UserFirebase {
 
     public static void getUser(String id, final UserModel.Listener<User> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-       synchronized (UserFirebase.class){
            db.collection(USERS_COLLECTION).whereEqualTo("id", id)
                    .get().addOnCompleteListener((task)->{
                User user = null;
@@ -36,7 +35,6 @@ public class UserFirebase {
                }
                listener.onComplete(user);
            });
-       }
     }
 
 
