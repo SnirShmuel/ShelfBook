@@ -19,12 +19,12 @@ import java.util.Map;
 import java.util.Objects;
 
 public class UserFirebase {
-    final static String QUESTION_COLLECTION = "Users";
+    final static String USERS_COLLECTION = "Users";
 
     public static void getUser(String id, final UserModel.Listener<User> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
        synchronized (UserFirebase.class){
-           db.collection(QUESTION_COLLECTION).whereEqualTo("id", id)
+           db.collection(USERS_COLLECTION).whereEqualTo("id", id)
                    .get().addOnCompleteListener((task)->{
                User user = null;
                if (task.isSuccessful()){
@@ -54,18 +54,31 @@ public class UserFirebase {
 
     public  static  void updateDetails(User user, UserModel.Listener<User> listener){
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        DocumentReference userRef = db.collection(QUESTION_COLLECTION).document(FirebaseAuth.getInstance().getCurrentUser().getUid());
+        DocumentReference userRef = db.collection(USERS_COLLECTION).document(FirebaseAuth.getInstance().getCurrentUser().getUid());
         Map<String,Object> updates = new HashMap<>();
+        updates.put("id",user.getId());
         updates.put("username", user.getUsername());
         updates.put("password",user.getPassword());
         updates.put("name", user.getName());
         updates.put("email", user.getEmail());
         updates.put("city", user.getCity());
         updates.put("phone", user.getPhone());
-        userRef.update(updates)
+//        userRef.update(updates)
+//                .addOnSuccessListener(new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        listener.onComplete(user);
+//                    }
+//                });
+
+        userRef.set(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        // Update email and password for auth
+                        FirebaseAuth.getInstance().getCurrentUser().updateEmail(user.getEmail());
+                        FirebaseAuth.getInstance().getCurrentUser().updatePassword(user.getPassword());
+
                         listener.onComplete(user);
                     }
                 });

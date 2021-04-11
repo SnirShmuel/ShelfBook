@@ -114,6 +114,7 @@ public class RegisterFragment extends Fragment {
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("id", mAuth.getCurrentUser().getUid());
                 map.put("username", username);
+                map.put("password",password);
                 map.put("name", name);
                 map.put("email", email);
                 map.put("city", city);
