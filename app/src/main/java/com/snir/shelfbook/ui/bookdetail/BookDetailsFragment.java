@@ -29,6 +29,7 @@ public class BookDetailsFragment extends Fragment {
     TextView bookgenretv;
     TextView bookconditiontv;
     TextView bookdesctv;
+    TextView bookAuthorTv;
     TextView ownerName;
     TextView ownerEmail;
     TextView ownerPhone;
@@ -53,6 +54,7 @@ public class BookDetailsFragment extends Fragment {
         bookgenretv = view.findViewById(R.id.bookDetailes_genreTv);
         bookconditiontv = view.findViewById(R.id.bookDetailes_conditionTv);
         bookdesctv = view.findViewById(R.id.bookDetailes_descriptionTv);
+        bookAuthorTv = view.findViewById(R.id.bookDetailes_authorTv);
         bookImgv = view.findViewById(R.id.bookDetailes_imgIv);
         ownerName = view.findViewById(R.id.bookDetails_owner_name);
         ownerEmail = view.findViewById(R.id.bookDetails_owner_email);
@@ -73,6 +75,7 @@ public class BookDetailsFragment extends Fragment {
         bookgenretv.setText(book.getGenre());
         bookconditiontv.setText(book.getBookCondition());
         bookdesctv.setText(book.getDescription());
+        bookAuthorTv.setText(book.getAuthor());
 
         BookFirebase.getOwnerData(book.getOwnerId(), new UserModel.Listener<User>() {
             @Override
