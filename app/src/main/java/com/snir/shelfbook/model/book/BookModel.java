@@ -4,15 +4,25 @@ package com.snir.shelfbook.model.book;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.util.Log;
 
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.snir.shelfbook.MyApplication;
 import com.snir.shelfbook.model.AppLocalDb;
+import com.snir.shelfbook.model.user.LoginUser;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 
 public class BookModel {
@@ -90,5 +100,13 @@ public class BookModel {
     public void deleteImage(String name,final BookModel.Listener<Boolean> listener){
         BookFirebase.deleteImage(name,listener);
     }
+    public void getUserBooks(Listener<List<Book>> listener){
+        BookFirebase.getBooksByOwnerId(LoginUser.getUser().userData.getId(), new Listener<List<Book>>(){
 
+            @Override
+            public void onComplete(List<Book> data) {
+                listener.onComplete(data);
+            }
+        });
+    }
 }

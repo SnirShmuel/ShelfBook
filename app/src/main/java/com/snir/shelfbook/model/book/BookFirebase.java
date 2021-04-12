@@ -146,5 +146,23 @@ public class BookFirebase {
             }
         });
     }
+    public static void getBooksByOwnerId(String ownerId, final BookModel.Listener<List<Book>> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(BOOK_COLLECTION).whereEqualTo("ownerId",ownerId)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Book> bookData = new LinkedList<Book>();
+                if (task.isSuccessful()){
+                    for(DocumentSnapshot doc : task.getResult()){
+                        Book book = new Book();
+                        book.fromMap(doc.getData());
+                        bookData.add(book);
+                    }
+                }
+                listener.onComplete(bookData);
+            }
+        });
+    }
 
 }
