@@ -71,19 +71,47 @@ public class BookDetailsFragment extends Fragment {
 
 
         addBookBtn.setVisibility(View.INVISIBLE);
-        booknametv.setText(book.getName());
-        bookgenretv.setText(book.getGenre());
-        bookconditiontv.setText(book.getBookCondition());
-        bookdesctv.setText(book.getDescription());
-        bookAuthorTv.setText(book.getAuthor());
+        if (book.getName() == null)
+            booknametv.setText("N/A");
+        else
+            booknametv.setText(book.getName());
+        if (book.getGenre() == null)
+            bookgenretv.setText("N/A");
+        else
+            bookgenretv.setText(book.getGenre());
+        if (book.getBookCondition() == null)
+            bookconditiontv.setText("N/A");
+        else
+            bookconditiontv.setText(book.getBookCondition());
+        if (book.getDescription() == null)
+            bookdesctv.setText("N/A");
+        else
+            bookdesctv.setText(book.getDescription());
+        if (book.getAuthor() == null)
+            bookAuthorTv.setText("N/A");
+        else
+            bookAuthorTv.setText(book.getAuthor());
+
 
         BookFirebase.getOwnerData(book.getOwnerId(), new UserModel.Listener<User>() {
             @Override
             public void onComplete(User data) {
-                ownerName.setText(data.getName());
-                ownerCity.setText(data.getCity());
-                ownerEmail.setText(data.getEmail());
-                ownerPhone.setText(data.getPhone());
+                if (data.getName() == null)
+                    ownerName.setText("N/A");
+                else
+                    ownerName.setText(data.getName());
+                if (data.getCity() == null)
+                    ownerCity.setText("N/A");
+                else
+                    ownerCity.setText(data.getCity());
+                if (data.getEmail() == null)
+                    ownerEmail.setText("N/A");
+                else
+                    ownerEmail.setText(data.getEmail());
+                if (data.getPhone() == null)
+                    ownerPhone.setText("N/A");
+                else
+                    ownerPhone.setText(data.getPhone());
             }
         });
 
