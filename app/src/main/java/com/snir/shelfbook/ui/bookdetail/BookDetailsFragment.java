@@ -22,6 +22,7 @@ import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookFirebase;
 import com.snir.shelfbook.model.book.BookModel;
+import com.snir.shelfbook.model.user.LoginUser;
 import com.snir.shelfbook.model.user.User;
 import com.snir.shelfbook.model.user.UserModel;
 import com.squareup.picasso.Picasso;
@@ -124,28 +125,33 @@ public class BookDetailsFragment extends Fragment {
                 .into(bookImgv);
 
 
+        if (LoginUser.getUser().userData.getId() != book.getOwnerId()) {
+            editBtn.setVisibility(View.INVISIBLE);
+            deleteBtn.setVisibility(View.INVISIBLE);
+        } else {
+            editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    BookDetailsFragmentDirections.ActionBookDetailsFragmentToBookEditFragment actionToEdit = BookDetailsFragmentDirections.actionBookDetailsFragmentToBookEditFragment(book);
+                    Navigation.findNavController(v).navigate(actionToEdit);
+                }
+            });
 
-        editBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                BookDetailsFragmentDirections.ActionBookDetailsFragmentToBookEditFragment actionToEdit = BookDetailsFragmentDirections.actionBookDetailsFragmentToBookEditFragment(book);
-                Navigation.findNavController(v).navigate(actionToEdit);
-            }
-        });
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    pd.setMessage("Delete book...");
+                    pd.show();
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            deleteBook(book, v);
+                        }
+                    }, 1000);   //1 seconds
 
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pd.setMessage("Delete book...");
-                pd.show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        deleteBook(book,v);
-                    }
-                }, 1000);   //1 seconds
+                }
+            });
+        }
 
-            }
-        });
 
         return view;
     }
@@ -156,7 +162,7 @@ public class BookDetailsFragment extends Fragment {
             @Override
             public void onComplete(Boolean data) {
                 pd.dismiss();
-                Snackbar.make(v,book.getName() + " was deleted!",Snackbar.LENGTH_LONG).show();
+                Snackbar.make(v, book.getName() + " was deleted!", Snackbar.LENGTH_LONG).show();
                 Navigation.findNavController(v).popBackStack();
             }
 
