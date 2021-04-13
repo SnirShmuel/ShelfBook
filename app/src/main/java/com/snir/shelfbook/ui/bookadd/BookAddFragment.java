@@ -20,8 +20,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
@@ -36,6 +38,7 @@ public class BookAddFragment extends Fragment {
     FloatingActionButton addBookBtn;
     FloatingActionButton addImgBtn;
     EditText bookNameEt;
+    EditText bookAuthorEt;
     EditText bookGenreEt;
     EditText bookConditionEt;
     EditText bookDescEt;
@@ -57,6 +60,7 @@ public class BookAddFragment extends Fragment {
         addBookBtn = getActivity().findViewById(R.id.fab);
         addImgBtn = view.findViewById(R.id.bookAdd_floatinAddPhoto);
         bookNameEt = view.findViewById(R.id.bookAdd_bookNameEt);
+        bookAuthorEt = view.findViewById(R.id.bookAdd_bookAuthorEt);
         bookGenreEt = view.findViewById(R.id.bookAdd_GenreEt);
         bookConditionEt = view.findViewById(R.id.bookAdd_CondEt);
         bookDescEt = view.findViewById(R.id.bookAdd_descEt);
@@ -76,7 +80,12 @@ public class BookAddFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveBook();
+                if (bookNameEt.getText().toString().isEmpty() || bookNameEt.getText().toString() == null)
+                    bookNameEt.setError("Book name cannot be empty!");
+                else if (bookConditionEt.getText().toString().isEmpty() || bookConditionEt.getText().toString() == null)
+                    bookConditionEt.setError("Book condition cannot be empty!");
+                else
+                    saveBook();
             }
         });
 
