@@ -83,7 +83,7 @@ public class bookEditFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage("Please wait!");
+                pd.setMessage("Save changes...");
                 pd.show();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
@@ -92,7 +92,7 @@ public class bookEditFragment extends Fragment {
                         Snackbar.make(v,book.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
                         Navigation.findNavController(v).popBackStack();
                     }
-                }, 2000);   //2 seconds
+                }, 1000);   //1 seconds
             }
         });
 

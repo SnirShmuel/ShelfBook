@@ -1,5 +1,6 @@
 package com.snir.shelfbook.ui.bookadd;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.snir.shelfbook.R;
@@ -42,7 +45,7 @@ public class BookAddFragment extends Fragment {
     ImageView bookImg;
     Button saveBtn;
     Button cancelBtn;
-
+    ProgressDialog pd;
 
     public BookAddFragment() {
         // Required empty public constructor
@@ -63,6 +66,7 @@ public class BookAddFragment extends Fragment {
         bookImg = view.findViewById(R.id.bookAdd_imgView);
         saveBtn = view.findViewById(R.id.bookAdd_saveBtn);
         cancelBtn = view.findViewById(R.id.bookAdd_cancelBtn);
+        pd = new ProgressDialog(getContext());
 
         addBookBtn.setVisibility(View.INVISIBLE);
 
@@ -76,7 +80,14 @@ public class BookAddFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveBook();
+                pd.setMessage("Save book...");
+                pd.show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        saveBook();
+                    }
+                }, 1000);   //1 seconds
+
             }
         });
 
@@ -165,6 +176,7 @@ public class BookAddFragment extends Fragment {
                     BookModel.instance.addBook(book, new BookModel.Listener<Boolean>() {
                         @Override
                         public void onComplete(Boolean data) {
+                            pd.dismiss();
                             Navigation.findNavController(saveBtn).popBackStack();
                         }
                     });

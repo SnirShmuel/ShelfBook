@@ -73,7 +73,7 @@ public class MyProfileFragment extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage(" ");
+                pd.setMessage("Update Details...");
                 pd.show();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
@@ -81,7 +81,7 @@ public class MyProfileFragment extends Fragment {
                         pd.dismiss();
                         Snackbar.make(v,user.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
                     }
-                }, 2000);   //2 seconds
+                }, 1000);   //1 seconds
             }
         });
 

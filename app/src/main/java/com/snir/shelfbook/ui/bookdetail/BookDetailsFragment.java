@@ -108,12 +108,13 @@ public class BookDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pd.setMessage("Delete book...");
                 pd.show();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         deleteBook(book,v);
                     }
-                }, 2000);   //5 seconds
+                }, 1000);   //1 seconds
 
             }
         });

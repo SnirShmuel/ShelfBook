@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +25,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookFirebase;
@@ -79,8 +81,10 @@ public class MyBooksListFragment extends Fragment {
 
         adapter = new MyBooksListFragment.MyAdapter();
         list.setAdapter(adapter);
+        list.setVisibility(View.INVISIBLE);
 
         pb = view.findViewById(R.id.myBooksList_progressBar);
+        pb.setVisibility(View.VISIBLE);
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,9 +110,13 @@ public class MyBooksListFragment extends Fragment {
         viewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
-                pb.setVisibility(View.GONE);
-                adapter.notifyDataSetChanged();
-
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                        list.setVisibility(View.VISIBLE);
+                        adapter.notifyDataSetChanged();
+                    }
+                }, 1000);   //1 seconds
             }
         });
 
@@ -122,7 +130,6 @@ public class MyBooksListFragment extends Fragment {
 
         return view;
     }
-
     //////////////////////////////////////////////////////////////
 
     interface OnItemClickListener{

@@ -18,8 +18,7 @@
             style="?android:attr/progressBarStyleLarge"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="false"
-            android:visibility="visible" />
+            android:layout_centerHorizontal="false" />
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/MyBooksList_swipeRefreshLayout"

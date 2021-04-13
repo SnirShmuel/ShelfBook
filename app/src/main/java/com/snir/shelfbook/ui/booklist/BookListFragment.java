@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,7 @@ public class BookListFragment extends Fragment {
 
         adapter = new MyAdapter();
         list.setAdapter(adapter);
+        list.setVisibility(View.INVISIBLE);
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,8 +102,13 @@ public class BookListFragment extends Fragment {
         viewModel.getData().observe(getViewLifecycleOwner(), new Observer<List<Book>>() {
             @Override
             public void onChanged(List<Book> books) {
-                pb.setVisibility(View.GONE);
-                adapter.notifyDataSetChanged();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        pb.setVisibility(View.GONE);
+                        list.setVisibility(View.VISIBLE);
+                        adapter.notifyDataSetChanged();
+                    }
+                }, 1000);   //1 seconds
             }
         });
 
