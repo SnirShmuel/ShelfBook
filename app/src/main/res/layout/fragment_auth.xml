@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/auth_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.Auth.AuthFragment"
-    android:background="#272E34"
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:background="#272E34"
+    tools:context=".ui.Auth.AuthFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -44,12 +45,12 @@
 
     <LinearLayout
 
+        android:id="@+id/linear_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:orientation="vertical"
-        android:padding="10dp"
-        android:id="@+id/linear_layout">
+        android:padding="10dp">
 
         <Button
             android:id="@+id/login_btn"
@@ -61,7 +62,7 @@
 
         <androidx.legacy.widget.Space
             android:layout_width="0dp"
-            android:layout_height="10dp"/>
+            android:layout_height="10dp" />
 
         <Button
             android:id="@+id/registerBtn"

@@ -1,16 +1,19 @@
 package com.snir.shelfbook.ui.bookdetail;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,6 +41,7 @@ public class BookDetailsFragment extends Fragment {
     Button editBtn;
     Button deleteBtn;
     FloatingActionButton addBookBtn;
+    ProgressDialog pd;
 
     public BookDetailsFragment() {
         // Required empty public constructor
@@ -66,9 +70,7 @@ public class BookDetailsFragment extends Fragment {
         book = BookDetailsFragmentArgs.fromBundle(getArguments()).getBook();
         addBookBtn = getActivity().findViewById(R.id.fab);
 
-
-
-
+        pd = new ProgressDialog(getContext());
 
         addBookBtn.setVisibility(View.INVISIBLE);
         booknametv.setText(book.getName());
@@ -106,7 +108,13 @@ public class BookDetailsFragment extends Fragment {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                deleteBook(book,v);
+                pd.show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        deleteBook(book,v);
+                    }
+                }, 2000);   //5 seconds
+
             }
         });
 
@@ -118,6 +126,7 @@ public class BookDetailsFragment extends Fragment {
         BookModel.instance.deleteBook(book, new BookModel.Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
+                pd.dismiss();
                 Snackbar.make(v,book.getName() + " was deleted!",Snackbar.LENGTH_LONG).show();
                 Navigation.findNavController(v).popBackStack();
             }

@@ -5,20 +5,20 @@ import androidx.lifecycle.ViewModel;
 
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
+import com.snir.shelfbook.model.user.LoginUser;
 
-import java.util.LinkedList;
 import java.util.List;
 
-public class BookListViewModel extends ViewModel {
+public class MyBooksListViewModel extends ViewModel {
     private LiveData<List<Book>> liveData;
 
-    public BookListViewModel(){
+    public MyBooksListViewModel(){
 
     }
 
     public LiveData<List<Book>> getData(){
         if (liveData == null){
-            liveData = BookModel.instance.getAllBooks();
+            liveData = BookModel.instance.getAllBooksOfUser(LoginUser.getUser().userData.getId());
         }
         return liveData;
     }

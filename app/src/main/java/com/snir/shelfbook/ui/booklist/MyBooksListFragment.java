@@ -1,13 +1,15 @@
 package com.snir.shelfbook.ui.booklist;
 
-import android.app.ProgressDialog;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
 import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavDirections;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,22 +34,22 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class BookListFragment extends Fragment {
-    BookListViewModel viewModel;
+public class MyBooksListFragment extends Fragment {
+    MyBooksListViewModel viewModel;
     RecyclerView list;
     FloatingActionButton addBookBtn;
-    MyAdapter adapter;
+    MyBooksListFragment.MyAdapter adapter;
     SwipeRefreshLayout srl;
     ProgressBar pb;
 
-    public BookListFragment() {
+    public MyBooksListFragment() {
         // Required empty public constructor
     }
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        viewModel = new ViewModelProvider(this).get(BookListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyBooksListViewModel.class);
     }
 
     @Override
@@ -59,41 +61,45 @@ public class BookListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_book_list, container, false);
+        View view = inflater.inflate(R.layout.my_books_fragment, container, false);
 
-        viewModel = new ViewModelProvider(this).get(BookListViewModel.class);
+        viewModel = new ViewModelProvider(this).get(MyBooksListViewModel.class);
 
-        srl = view.findViewById(R.id.BookList_swipeRefreshLayout);
+        srl = view.findViewById(R.id.MyBooksList_swipeRefreshLayout);
 
         addBookBtn = getActivity().findViewById(R.id.fab);
         addBookBtn.setVisibility(View.VISIBLE);
 
-        pb = view.findViewById(R.id.BookList_progressBar);
 
-        list = view.findViewById(R.id.BookList_rv);
+        list = view.findViewById(R.id.MyBooksList_rv);
         list.hasFixedSize();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         list.setLayoutManager(layoutManager);
 
-        adapter = new MyAdapter();
+        adapter = new MyBooksListFragment.MyAdapter();
         list.setAdapter(adapter);
+
+        pb = view.findViewById(R.id.myBooksList_progressBar);
 
         addBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_nav_books_list_to_bookAddFragment);
+                Navigation.findNavController(view).navigate(R.id.action_myBooksListFragment_to_bookAddFragment);
             }
         });
 
-        adapter.setOnClickListener(new OnItemClickListener() {
+        adapter.setOnClickListener(new MyBooksListFragment.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
                 Log.d("TAG","row was clicked " + position);
                 Book book = viewModel.getData().getValue().get(position);
 
-                BookListFragmentDirections.ActionBooksListToBookDetailsFragment action = BookListFragmentDirections.actionBooksListToBookDetailsFragment(book);
+                MyBooksListFragmentDirections.ActionMyBooksListFragmentToBookDetailsFragment action = MyBooksListFragmentDirections.actionMyBooksListFragmentToBookDetailsFragment(book);
                 Navigation.findNavController(view).navigate(action);
+
+//                //nav to home page of application
+//                Navigation.findNavController(view).navigate(R.id.action_myBooksListFragment_to_bookDetailsFragment);
             }
         });
 
@@ -102,6 +108,7 @@ public class BookListFragment extends Fragment {
             public void onChanged(List<Book> books) {
                 pb.setVisibility(View.GONE);
                 adapter.notifyDataSetChanged();
+
             }
         });
 
@@ -123,7 +130,7 @@ public class BookListFragment extends Fragment {
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
-        public OnItemClickListener listener;
+        public MyBooksListFragment.OnItemClickListener listener;
         TextView giverCity;
         TextView bookName;
         TextView bookCondition;
@@ -164,24 +171,24 @@ public class BookListFragment extends Fragment {
 
     /////////////////////////////////////////////////////////////
 
-    class MyAdapter extends RecyclerView.Adapter<MyViewHolder>{
-        private OnItemClickListener listener;
+    class MyAdapter extends RecyclerView.Adapter<MyBooksListFragment.MyViewHolder>{
+        private MyBooksListFragment.OnItemClickListener listener;
 
-        void setOnClickListener(OnItemClickListener listener){
+        void setOnClickListener(MyBooksListFragment.OnItemClickListener listener){
             this.listener = listener;
         }
 
         @NonNull
         @Override
-        public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        public MyBooksListFragment.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_row,parent,false);
-            MyViewHolder holder = new MyViewHolder(view);
+            MyBooksListFragment.MyViewHolder holder = new MyBooksListFragment.MyViewHolder(view);
             holder.listener = listener;
             return holder;
         }
 
         @Override
-        public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull MyBooksListFragment.MyViewHolder holder, int position) {
             Book book = viewModel.getData().getValue().get(position);
             holder.bindData(book,position);
         }

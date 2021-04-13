@@ -46,6 +46,12 @@ public class BookModel {
         return liveData;
     }
 
+    public LiveData<List<Book>> getAllBooksOfUser(String UserId){
+        liveData = AppLocalDb.db.bookDao().getAllBooksUser(UserId);
+        refreshBookList(null);
+        return liveData;
+    }
+
     public void addBook(Book book, Listener<Boolean> listener){
         BookFirebase.addBook(book, listener);
         BookSql.addBook(book, null);

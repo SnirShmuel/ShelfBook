@@ -14,6 +14,9 @@ public interface BookDao {
     @Query("select * from Book")
     LiveData<List<Book>> getAllBooks();
 
+    @Query("select * from Book where ownerId = :ownerID")
+    LiveData<List<Book>> getAllBooksUser(String ownerID);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertAll(Book... books);
 

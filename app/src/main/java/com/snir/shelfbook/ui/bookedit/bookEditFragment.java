@@ -1,5 +1,6 @@
 package com.snir.shelfbook.ui.bookedit;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -13,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -42,6 +44,7 @@ public class bookEditFragment extends Fragment {
     Button saveBtn;
     Button deleteBtn;
     FloatingActionButton addBookBtn;
+    ProgressDialog pd;
 
     public bookEditFragment() {
         // Required empty public constructor
@@ -75,12 +78,21 @@ public class bookEditFragment extends Fragment {
                 .error(R.drawable.jabbascript)
                 .into(bookImgBtn);
 
+        pd = new ProgressDialog(getContext());
+
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateBook();
-                Snackbar.make(v,book.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
-                Navigation.findNavController(v).popBackStack();
+                pd.setMessage("Please wait!");
+                pd.show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        updateBook();
+                        pd.dismiss();
+                        Snackbar.make(v,book.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
+                        Navigation.findNavController(v).popBackStack();
+                    }
+                }, 2000);   //2 seconds
             }
         });
 

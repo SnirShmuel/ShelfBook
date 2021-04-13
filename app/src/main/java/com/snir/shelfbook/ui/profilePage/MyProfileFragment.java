@@ -1,11 +1,13 @@
 package com.snir.shelfbook.ui.profilePage;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +24,8 @@ import com.snir.shelfbook.model.user.LoginUser;
 import com.snir.shelfbook.model.user.User;
 import com.snir.shelfbook.model.user.UserModel;
 
+
+
 public class MyProfileFragment extends Fragment {
     User user;
     EditText username;
@@ -32,7 +36,7 @@ public class MyProfileFragment extends Fragment {
     EditText phone;
     Button editBtn;
     Button logoutBtn;
-
+    ProgressDialog pd;
     public MyProfileFragment() {
         // Required empty public constructor
     }
@@ -64,11 +68,20 @@ public class MyProfileFragment extends Fragment {
         editBtn = view.findViewById(R.id.profile_edit_button);
         logoutBtn = view.findViewById(R.id.profile_logout_button);
 
+        pd = new ProgressDialog(getContext());
+
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateProfile();
-                Snackbar.make(v,user.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
+                pd.setMessage(" ");
+                pd.show();
+                new Handler().postDelayed(new Runnable() {
+                    public void run() {
+                        updateProfile();
+                        pd.dismiss();
+                        Snackbar.make(v,user.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
+                    }
+                }, 2000);   //2 seconds
             }
         });
 

@@ -104,4 +104,16 @@
         android:name="com.snir.shelfbook.ui.profilePage.MyProfileFragment"
         android:label="My Profile"
         tools:layout="@layout/fragment_my_profile" />
+    <fragment
+        android:id="@+id/myBooksListFragment"
+        android:name="com.snir.shelfbook.ui.booklist.MyBooksListFragment"
+        android:label="My Books"
+        tools:layout="@layout/my_books_fragment">
+        <action
+            android:id="@+id/action_myBooksListFragment_to_bookAddFragment"
+            app:destination="@id/bookAddFragment" />
+        <action
+            android:id="@+id/action_myBooksListFragment_to_bookDetailsFragment"
+            app:destination="@id/bookDetailsFragment" />
+    </fragment>
 </navigation>
