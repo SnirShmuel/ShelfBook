@@ -22,14 +22,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-<<<<<<<HEAD
-import android.widget.ProgressBar;
-=======
-import android.widget.Toast;
->>>>>>>d1e79cd0a04d292b89f8a0457e8eb72057ada465
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
