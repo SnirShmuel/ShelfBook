@@ -73,19 +73,47 @@ public class BookDetailsFragment extends Fragment {
         pd = new ProgressDialog(getContext());
 
         addBookBtn.setVisibility(View.INVISIBLE);
-        booknametv.setText(book.getName());
-        bookgenretv.setText(book.getGenre());
-        bookconditiontv.setText(book.getBookCondition());
-        bookdesctv.setText(book.getDescription());
-        bookAuthorTv.setText(book.getAuthor());
+        if (book.getName() == null || book.getName().isEmpty())
+            booknametv.setText("N/A");
+        else
+            booknametv.setText(book.getName());
+        if (book.getGenre() == null || book.getGenre().isEmpty())
+            bookgenretv.setText("N/A");
+        else
+            bookgenretv.setText(book.getGenre());
+        if (book.getBookCondition() == null || book.getBookCondition().isEmpty())
+            bookconditiontv.setText("N/A");
+        else
+            bookconditiontv.setText(book.getBookCondition());
+        if (book.getDescription() == null || book.getDescription().isEmpty())
+            bookdesctv.setText("N/A");
+        else
+            bookdesctv.setText(book.getDescription());
+        if (book.getAuthor() == null || book.getAuthor().isEmpty())
+            bookAuthorTv.setText("N/A");
+        else
+            bookAuthorTv.setText(book.getAuthor());
+
 
         BookFirebase.getOwnerData(book.getOwnerId(), new UserModel.Listener<User>() {
             @Override
             public void onComplete(User data) {
-                ownerName.setText(data.getName());
-                ownerCity.setText(data.getCity());
-                ownerEmail.setText(data.getEmail());
-                ownerPhone.setText(data.getPhone());
+                if (data.getName() == null || data.getName().isEmpty())
+                    ownerName.setText("N/A");
+                else
+                    ownerName.setText(data.getName());
+                if (data.getCity() == null || data.getCity().isEmpty())
+                    ownerCity.setText("N/A");
+                else
+                    ownerCity.setText(data.getCity());
+                if (data.getEmail() == null || data.getEmail().isEmpty())
+                    ownerEmail.setText("N/A");
+                else
+                    ownerEmail.setText(data.getEmail());
+                if (data.getPhone() == null || data.getPhone().isEmpty())
+                    ownerPhone.setText("N/A");
+                else
+                    ownerPhone.setText(data.getPhone());
             }
         });
 

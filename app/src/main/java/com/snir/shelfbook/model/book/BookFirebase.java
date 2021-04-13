@@ -38,7 +38,7 @@ public class BookFirebase {
     public static void getAllBooks(Long lastUpdated, final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         Timestamp ts = new Timestamp(lastUpdated,0);
-        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts)
+        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts).whereEqualTo("isGiven",false)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

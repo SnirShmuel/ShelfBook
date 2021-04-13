@@ -22,9 +22,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+<<<<<<<HEAD
 import android.widget.ProgressBar;
+=======
+import android.widget.Toast;
+>>>>>>>d1e79cd0a04d292b89f8a0457e8eb72057ada465
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 import com.snir.shelfbook.R;
 import com.snir.shelfbook.model.book.Book;
 import com.snir.shelfbook.model.book.BookModel;
@@ -39,6 +44,7 @@ public class BookAddFragment extends Fragment {
     FloatingActionButton addBookBtn;
     FloatingActionButton addImgBtn;
     EditText bookNameEt;
+    EditText bookAuthorEt;
     EditText bookGenreEt;
     EditText bookConditionEt;
     EditText bookDescEt;
@@ -56,10 +62,11 @@ public class BookAddFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_book_add, container, false);
-        
+
         addBookBtn = getActivity().findViewById(R.id.fab);
         addImgBtn = view.findViewById(R.id.bookAdd_floatinAddPhoto);
         bookNameEt = view.findViewById(R.id.bookAdd_bookNameEt);
+        bookAuthorEt = view.findViewById(R.id.bookAdd_bookAuthorEt);
         bookGenreEt = view.findViewById(R.id.bookAdd_GenreEt);
         bookConditionEt = view.findViewById(R.id.bookAdd_CondEt);
         bookDescEt = view.findViewById(R.id.bookAdd_descEt);
@@ -80,14 +87,18 @@ public class BookAddFragment extends Fragment {
         saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage("Save book...");
+                if (bookNameEt.getText().toString().isEmpty() || bookNameEt.getText().toString() == null)
+                    bookNameEt.setError("Book name cannot be empty!");
+                else if (bookConditionEt.getText().toString().isEmpty() || bookConditionEt.getText().toString() == null)
+                    bookConditionEt.setError("Book condition cannot be empty!");
+                else
+                    pd.setMessage("Save book...");
                 pd.show();
                 new Handler().postDelayed(new Runnable() {
                     public void run() {
                         saveBook();
                     }
                 }, 1000);   //1 seconds
-
             }
         });
 
@@ -103,7 +114,7 @@ public class BookAddFragment extends Fragment {
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode != RESULT_CANCELED) {
+        if (resultCode != RESULT_CANCELED) {
             switch (requestCode) {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
@@ -113,7 +124,7 @@ public class BookAddFragment extends Fragment {
                     break;
                 case 1:
                     if (resultCode == RESULT_OK && data != null) {
-                        Uri selectedImage =  data.getData();
+                        Uri selectedImage = data.getData();
                         String[] filePathColumn = {MediaStore.Images.Media.DATA};
                         if (selectedImage != null) {
                             Cursor cursor = getActivity().getContentResolver().query(selectedImage,
@@ -133,7 +144,7 @@ public class BookAddFragment extends Fragment {
     }
 
     private void addImage() {
-        final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
+        final CharSequence[] options = {"Take Photo", "Choose from Gallery", "Cancel"};
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose your profile picture");
         builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -144,7 +155,7 @@ public class BookAddFragment extends Fragment {
                     startActivityForResult(takePicture, 0);
                 } else if (options[item].equals("Choose from Gallery")) {
                     Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                    startActivityForResult(pickPhoto , 1);
+                    startActivityForResult(pickPhoto, 1);
                 } else if (options[item].equals("Cancel")) {
                     dialog.dismiss();
                 }
@@ -153,17 +164,18 @@ public class BookAddFragment extends Fragment {
         builder.show();
     }
 
-    private void saveBook(){
+    private void saveBook() {
         final Book book = new Book();
         book.setId(UUID.randomUUID().toString());
         book.setName(bookNameEt.getText().toString());
+        book.setAuthor(bookAuthorEt.getText().toString());
         book.setGenre(bookGenreEt.getText().toString());
         book.setBookCondition(bookConditionEt.getText().toString());
         book.setDescription(bookDescEt.getText().toString());
         book.setGiven(false);
         book.setOwnerId(LoginUser.getUser().userData.getId());
 
-        BitmapDrawable drawable = (BitmapDrawable)bookImg.getDrawable();
+        BitmapDrawable drawable = (BitmapDrawable) bookImg.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
         BookModel.instance.uploadImage(bitmap, book.getId(), new BookModel.Listener<String>() {
