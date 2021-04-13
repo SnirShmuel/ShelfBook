@@ -35,6 +35,7 @@ public class bookEditFragment extends Fragment {
     View view;
     Book book;
     EditText bookNameEv;
+    EditText bookAuthorEv;
     EditText bookGenreEv;
     EditText bookConditionEv;
     EditText bookDescriptionEv;
@@ -56,6 +57,7 @@ public class bookEditFragment extends Fragment {
         book= bookEditFragmentArgs.fromBundle(getArguments()).getBook();
 
         bookNameEv = view.findViewById(R.id.bookEdit_nameEv);
+        bookAuthorEv = view.findViewById(R.id.bookEdit_authorEv);
         bookGenreEv = view.findViewById(R.id.bookEdit_GenreEv);
         bookConditionEv = view.findViewById(R.id.bookEdit_conditionEv);
         bookDescriptionEv = view.findViewById(R.id.bookEdit_descEv);
@@ -65,10 +67,30 @@ public class bookEditFragment extends Fragment {
         addBookBtn = getActivity().findViewById(R.id.fab);
 
         addBookBtn.setVisibility(View.INVISIBLE);
-        bookNameEv.setText(book.getName());
-        bookGenreEv.setText(book.getGenre());
-        bookConditionEv.setText(book.getBookCondition());
-        bookDescriptionEv.setText(book.getDescription());
+
+        if (book.getName() == null || book.getName().isEmpty())
+            bookNameEv.setText("N/A");
+        else
+            bookNameEv.setText(book.getName());
+        if (book.getGenre() == null || book.getGenre().isEmpty())
+            bookGenreEv.setText("N/A");
+        else
+            bookGenreEv.setText(book.getGenre());
+        if (book.getBookCondition() == null || book.getBookCondition().isEmpty())
+            bookConditionEv.setText("N/A");
+        else
+            bookConditionEv.setText(book.getBookCondition());
+        if (book.getDescription() == null || book.getDescription().isEmpty())
+            bookDescriptionEv.setText("N/A");
+        else
+            bookDescriptionEv.setText(book.getDescription());
+        if (book.getAuthor() == null || book.getAuthor().isEmpty())
+            bookAuthorEv.setText("N/A");
+        else
+            bookAuthorEv.setText(book.getAuthor());
+
+
+
         Picasso.get()
                 .load(book.getImageUrl())
                 .placeholder(R.drawable.jabbascript)
@@ -81,6 +103,7 @@ public class bookEditFragment extends Fragment {
                 updateBook();
                 Snackbar.make(v,book.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
                 Navigation.findNavController(v).popBackStack();
+                Navigation.findNavController(v).popBackStack();
             }
         });
 
@@ -88,6 +111,16 @@ public class bookEditFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 editImage();
+            }
+        });
+
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteBook();
+                Snackbar.make(v,book.getName() + " was deleted!",Snackbar.LENGTH_LONG).show();
+                Navigation.findNavController(v).popBackStack();
+                Navigation.findNavController(v).popBackStack();
             }
         });
 
@@ -130,6 +163,8 @@ public class bookEditFragment extends Fragment {
         //Check edit text is not empty and update the book values
         if (!(bookNameEv.getText().toString().isEmpty()) && (!bookNameEv.getText().toString().equals(book.getName())))
             book.setName(bookNameEv.getText().toString());
+        if (!(bookAuthorEv.getText().toString().isEmpty()) && (!bookAuthorEv.getText().toString().equals(book.getAuthor())))
+            book.setAuthor(bookAuthorEv.getText().toString());
         if (!(bookGenreEv.getText().toString().isEmpty()) && (!bookGenreEv.getText().toString().equals(book.getGenre())))
             book.setGenre(bookGenreEv.getText().toString());
         if (!(bookConditionEv.getText().toString().isEmpty()) && (!bookConditionEv.getText().toString().equals(book.getBookCondition())))
@@ -139,13 +174,13 @@ public class bookEditFragment extends Fragment {
         BitmapDrawable drawable = (BitmapDrawable)bookImgBtn.getDrawable();
         Bitmap bitmap = drawable.getBitmap();
 
-//        //Delete old photo from server
-//        BookModel.instance.deleteImage(book.getId(), new BookModel.Listener<Boolean>() {
-//            @Override
-//            public void onComplete(Boolean data) {
-//
-//            }
-//        });
+        //Delete old photo from server
+        BookModel.instance.deleteImage(book.getId(), new BookModel.Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+
+            }
+        });
 
         //Upload new photo to server
         BookModel.instance.uploadImage(bitmap, book.getId(), new BookModel.Listener<String>() {
@@ -198,4 +233,14 @@ public class bookEditFragment extends Fragment {
         });
         builder.show();
     }
+
+    private void deleteBook() {
+        BookModel.instance.deleteBook(book, new BookModel.Listener<Boolean>() {
+            @Override
+            public void onComplete(Boolean data) {
+
+            }
+        });
+    }
+
 }

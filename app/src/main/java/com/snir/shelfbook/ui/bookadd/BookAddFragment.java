@@ -155,6 +155,7 @@ public class BookAddFragment extends Fragment {
         final Book book = new Book();
         book.setId(UUID.randomUUID().toString());
         book.setName(bookNameEt.getText().toString());
+        book.setAuthor(bookAuthorEt.getText().toString());
         book.setGenre(bookGenreEt.getText().toString());
         book.setBookCondition(bookConditionEt.getText().toString());
         book.setDescription(bookDescEt.getText().toString());
