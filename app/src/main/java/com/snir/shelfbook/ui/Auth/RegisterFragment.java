@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -93,7 +94,12 @@ public class RegisterFragment extends Fragment {
                     Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
                 } else if (txtPassword.length() < 6) {
                     Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
-                } else {
+
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()){
+                    Toast.makeText(getContext(), "Email address is invalid!", Toast.LENGTH_SHORT).show();
+            } else if(txtPhone.length() != 10){
+                    Toast.makeText(getContext(), "Phone number have to be 10 digits", Toast.LENGTH_SHORT).show();
+                }else {
                     registerUser(txtUsername, txtName, txtEmail, txtPassword,txtCity,txtPhone);
                 }
             }

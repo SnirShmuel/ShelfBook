@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,18 +71,33 @@ public class MyProfileFragment extends Fragment {
 
         pd = new ProgressDialog(getContext());
 
+
+
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pd.setMessage("Update Details...");
-                pd.show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        updateProfile();
-                        pd.dismiss();
-                        Snackbar.make(v,user.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
-                    }
-                }, 1000);   //1 seconds
+                if (TextUtils.isEmpty(username.toString()) || TextUtils.isEmpty(name.toString()) ||
+                        TextUtils.isEmpty(email.toString()) || TextUtils.isEmpty(password.toString()) ||
+                        TextUtils.isEmpty(city.toString() )|| TextUtils.isEmpty(phone.toString())) {
+                    Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
+                } else if (password.length() < 6) {
+                    Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
+
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()){
+                    Toast.makeText(getContext(), "Email address is invalid!", Toast.LENGTH_SHORT).show();
+                } else if(phone.length() != 10){
+                    Toast.makeText(getContext(), "Phone number have to be 10 digits", Toast.LENGTH_SHORT).show();
+                }else {
+                    pd.setMessage("Update Details...");
+                    pd.show();
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            updateProfile();
+                            pd.dismiss();
+                            Snackbar.make(v,user.getName() + " was updated!",Snackbar.LENGTH_LONG).show();
+                        }
+                    }, 1000);   //1 seconds
+                }
             }
         });
 
@@ -102,17 +118,17 @@ public class MyProfileFragment extends Fragment {
         //Check edit text is not empty and update the book values
 //        if (!(bookNameEv.getText().toString().isEmpty()) && (!bookNameEv.getText().toString().equals(book.getName())))
 //            book.setName(bookNameEv.getText().toString());
-        if (!(username.getText().toString().isEmpty()) && (!username.getText().toString().equals(user.getUsername())))
+        if (!username.getText().toString().equals(user.getUsername()))
             user.setUsername(username.getText().toString());
-        if (!(password.getText().toString().isEmpty()) && (!password.getText().toString().equals(user.getPassword())))
+        if (!password.getText().toString().equals(user.getPassword()))
             user.setPassword(password.getText().toString());
-        if (!(name.getText().toString().isEmpty()) && (!name.getText().toString().equals(user.getName())))
+        if (!name.getText().toString().equals(user.getName()))
             user.setName(name.getText().toString());
-        if (!(email.getText().toString().isEmpty()) && (!email.getText().toString().equals(user.getEmail())))
+        if (!email.getText().toString().equals(user.getEmail()))
             user.setEmail(email.getText().toString());
-        if (!(city.getText().toString().isEmpty()) && (!city.getText().toString().equals(user.getCity())))
+        if (!city.getText().toString().equals(user.getCity()))
             user.setCity(city.getText().toString());
-        if (!(phone.getText().toString().isEmpty()) && (!phone.getText().toString().equals(user.getUsername())))
+        if (!phone.getText().toString().equals(user.getUsername()))
             user.setPhone(phone.getText().toString());
 
         UserModel.instance.updateUserDetails(user, new UserModel.Listener<User>() {
