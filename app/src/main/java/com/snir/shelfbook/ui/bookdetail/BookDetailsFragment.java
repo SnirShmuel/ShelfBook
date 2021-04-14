@@ -125,7 +125,7 @@ public class BookDetailsFragment extends Fragment {
                 .into(bookImgv);
 
 
-        if (LoginUser.getUser().userData.getId() != book.getOwnerId()) {
+        if (!LoginUser.getUser().userData.getId().equals(book.getOwnerId())) {
             editBtn.setVisibility(View.INVISIBLE);
             deleteBtn.setVisibility(View.INVISIBLE);
         } else {
