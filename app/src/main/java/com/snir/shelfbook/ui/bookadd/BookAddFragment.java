@@ -85,14 +85,15 @@ public class BookAddFragment extends Fragment {
                     bookNameEt.setError("Book name cannot be empty!");
                 else if (bookConditionEt.getText().toString().isEmpty() || bookConditionEt.getText().toString() == null)
                     bookConditionEt.setError("Book condition cannot be empty!");
-                else
+                else {
                     pd.setMessage("Save book...");
-                pd.show();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        saveBook();
-                    }
-                }, 1000);   //1 seconds
+                    pd.show();
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            saveBook();
+                        }
+                    }, 1000);   //1 seconds
+                }
             }
         });
 

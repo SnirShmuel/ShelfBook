@@ -42,8 +42,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetailes_authorTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
 
             <TextView
@@ -55,8 +53,6 @@
                 android:text="Author:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetailes_authorTv"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
 
@@ -70,8 +66,6 @@
                 android:text="Genre:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetailes_genreTv"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_authorTxt" />
 
@@ -101,8 +95,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetailes_conditionTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTv" />
 
             <TextView
@@ -116,8 +108,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetailes_genreTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_authorTv" />
 
             <TextView
@@ -130,8 +120,6 @@
                 android:text="Condition:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetailes_conditionTv"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTxt" />
 
@@ -196,8 +184,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetails_owner_cityTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_name" />
 
             <TextView
@@ -210,8 +196,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetails_owner_phoneTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_city" />
 
             <TextView
@@ -224,8 +208,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetails_owner_nameTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_ownerSection" />
 
             <TextView
@@ -240,8 +222,6 @@
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/bookDetails_owner_emailTxt"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_phone" />
 
             <TextView
@@ -253,8 +233,6 @@
                 android:text="Name:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetails_owner_name"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_ownerSection" />
 
@@ -267,8 +245,6 @@
                 android:text="City:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetails_owner_city"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_nameTxt" />
 
@@ -281,8 +257,6 @@
                 android:text="Phone:"
                 android:textAlignment="center"
                 android:textSize="24sp"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetails_owner_phone"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_cityTxt" />
 
@@ -297,8 +271,6 @@
                 android:textAlignment="center"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/bookDetails_owner_email"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_phoneTxt" />
 
