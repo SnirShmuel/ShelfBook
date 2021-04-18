@@ -36,6 +36,7 @@ public class Book implements Serializable {
         result.put("id", this.getId());
         result.put("name", this.getName());
         result.put("bookCondition", this.getBookCondition());
+        result.put("author",this.getAuthor());
         result.put("genre", this.getGenre());
         result.put("imageUrl", this.getImageUrl());
         result.put("description", this.getDescription());
@@ -49,6 +50,7 @@ public class Book implements Serializable {
         this.setId((String) Objects.requireNonNull(map.get("id")));
         this.setName((String)map.get("name"));
         this.setBookCondition((String)map.get("bookCondition"));
+        this.setAuthor((String)map.get("author"));
         this.setGenre((String)map.get("genre"));
         this.setImageUrl((String)map.get("imageUrl"));
         this.setDescription((String)map.get("description"));

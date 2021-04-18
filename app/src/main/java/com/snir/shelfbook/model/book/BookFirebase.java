@@ -35,10 +35,9 @@ public class BookFirebase {
     private static final String BOOK_COLLECTION = "books";
 
 
-    public static void getAllBooks(Long lastUpdated, final BookModel.Listener<List<Book>> listener) {
+    public static void getAllUngivenBooks(final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        Timestamp ts = new Timestamp(lastUpdated,0);
-        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts).whereEqualTo("isGiven",false)
+        db.collection(BOOK_COLLECTION).whereEqualTo("isGiven",false)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -53,8 +52,23 @@ public class BookFirebase {
                 listener.onComplete(bookData);
             }
         });
+//        Timestamp ts = new Timestamp(lastUpdated,0);
+//        db.collection(BOOK_COLLECTION).whereGreaterThanOrEqualTo("lastUpdated", ts).whereEqualTo("isGiven",false)
+//                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+//                List<Book> bookData = new LinkedList<Book>();
+//                if (task.isSuccessful()){
+//                    for(DocumentSnapshot doc : task.getResult()){
+//                        Book book = new Book();
+//                        book.fromMap(doc.getData());
+//                        bookData.add(book);
+//                    }
+//                }
+//                listener.onComplete(bookData);
+//            }
+//        });
     }
-
 
 
     public static void addBook(Book book, BookModel.Listener<Boolean> listener) {

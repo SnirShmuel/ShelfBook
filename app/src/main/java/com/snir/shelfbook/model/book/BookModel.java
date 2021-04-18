@@ -41,14 +41,15 @@ public class BookModel {
     }
 
     public LiveData<List<Book>> getAllBooks(){
-        liveData = AppLocalDb.db.bookDao().getAllBooks();
+
+        liveData = BookSql.getAllBooks();
         refreshBookList(null);
         return liveData;
     }
 
-    public LiveData<List<Book>> getAllBooksOfUser(String UserId){
-        liveData = AppLocalDb.db.bookDao().getAllBooksUser(UserId);
-        refreshBookList(null);
+    public LiveData<List<Book>> getAllBooksByUser(String UserId){
+        liveData = BookSql.getBookByUser(UserId);
+        refreshMyBookList(UserId,null);
         return liveData;
     }
 
@@ -74,29 +75,63 @@ public class BookModel {
     }
 
     public void refreshBookList(final CompListener listener){
-        //1. get local last update date
+        BookSql.deleteAllBooks(new CompListener() {
+            @Override
+            public void onComplete() {
+                liveData = null;
+            }
+        });
+//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+        BookFirebase.getAllUngivenBooks(new Listener<List<Book>>() {
+            @Override
+            public void onComplete(List<Book> data) {
+                for (Book book:data){
+                    BookSql.addBook(book,null);
+                }
+//                sp.edit().commit();
+                if (listener != null)
+                    listener.onComplete();
+            }
+        });
+
+//        //1. get local last update date
+//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+//        Long lastUpdated = sp.getLong("lastUpdated",0);
+//        //2. get all updated record from firebase from the last update date
+//        BookFirebase.getAllBooks(lastUpdated, new Listener<List<Book>>() {
+//                    @Override
+//                    public void onComplete(List<Book> data) {
+//                        //3. insert the new updates to the local db
+//                        Long lastU = Long.valueOf(0);
+//                        for (Book book: data) {
+//                            BookSql.addBook(book,null);
+//                            if (book.getLastUpdated()>lastU){
+//                                lastU = book.getLastUpdated();
+//                            }
+//                        }
+//                        //4. update the local last update date
+//                        sp.edit().putLong("lastUpdated", lastU).commit();
+//                        //5. return the updates data to the listeners
+//                        if(listener != null){
+//                            listener.onComplete();
+//                        }
+//                    }
+//                });
+    }
+
+    public void refreshMyBookList(String userId,final CompListener listener){
         final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        Long lastUpdated = sp.getLong("lastUpdated",0);
-        //2. get all updated record from firebase from the last update date
-        BookFirebase.getAllBooks(lastUpdated, new Listener<List<Book>>() {
-                    @Override
-                    public void onComplete(List<Book> data) {
-                        //3. insert the new updates to the local db
-                        Long lastU = Long.valueOf(0);
-                        for (Book book: data) {
-                            BookSql.addBook(book,null);
-                            if (book.getLastUpdated()>lastU){
-                                lastU = book.getLastUpdated();
-                            }
-                        }
-                        //4. update the local last update date
-                        sp.edit().putLong("lastUpdated", lastU).commit();
-                        //5. return the updates data to the listeners
-                        if(listener != null){
-                            listener.onComplete();
-                        }
-                    }
-                });
+        BookFirebase.getBooksByOwnerId(userId, new Listener<List<Book>>() {
+            @Override
+            public void onComplete(List<Book> data) {
+                for (Book book: data){
+                    BookSql.addBook(book,null);
+                }
+                sp.edit().commit();
+                if (listener != null)
+                    listener.onComplete();
+            }
+        });
     }
 
     public void uploadImage(Bitmap imageBmp, String name, final BookModel.Listener<String> listener){

@@ -18,7 +18,7 @@ public class MyBooksListViewModel extends ViewModel {
 
     public LiveData<List<Book>> getData(){
         if (liveData == null){
-            liveData = BookModel.instance.getAllBooksOfUser(LoginUser.getUser().userData.getId());
+            liveData = BookModel.instance.getAllBooksByUser(LoginUser.getUser().userData.getId());
         }
         return liveData;
     }
