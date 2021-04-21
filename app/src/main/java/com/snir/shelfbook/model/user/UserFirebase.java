@@ -61,13 +61,6 @@ public class UserFirebase {
         updates.put("email", user.getEmail());
         updates.put("city", user.getCity());
         updates.put("phone", user.getPhone());
-//        userRef.update(updates)
-//                .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                    @Override
-//                    public void onSuccess(Void aVoid) {
-//                        listener.onComplete(user);
-//                    }
-//                });
 
         userRef.set(updates)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

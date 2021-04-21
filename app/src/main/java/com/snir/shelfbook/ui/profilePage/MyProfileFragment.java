@@ -115,9 +115,7 @@ public class MyProfileFragment extends Fragment {
     }
 
     public void updateProfile(){
-        //Check edit text is not empty and update the book values
-//        if (!(bookNameEv.getText().toString().isEmpty()) && (!bookNameEv.getText().toString().equals(book.getName())))
-//            book.setName(bookNameEv.getText().toString());
+        //Check edit text is not empty and update the profile values
         if (!username.getText().toString().equals(user.getUsername()))
             user.setUsername(username.getText().toString());
         if (!password.getText().toString().equals(user.getPassword()))

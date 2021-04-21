@@ -17,13 +17,6 @@ public class LoginUser {
     // static method to create instance of Singleton class
     public static LoginUser getUser() {
             if (single_instance == null) {
-//                UserModel.instance.getUser(new UserModel.Listener<User>() {
-//                    @Override
-//                    public void onComplete(User data) {
-//                        single_instance = new LoginUser(data);
-//                    }
-//
-//                });
                 single_instance = new LoginUser();
             }
 

@@ -46,7 +46,6 @@ public class BookAddFragment extends Fragment {
     Button saveBtn;
     Button cancelBtn;
     ProgressDialog pd;
-
     public BookAddFragment() {
         // Required empty public constructor
     }
@@ -67,6 +66,7 @@ public class BookAddFragment extends Fragment {
         bookImg = view.findViewById(R.id.bookAdd_imgView);
         saveBtn = view.findViewById(R.id.bookAdd_saveBtn);
         cancelBtn = view.findViewById(R.id.bookAdd_cancelBtn);
+
         pd = new ProgressDialog(getContext());
 
         addBookBtn.setVisibility(View.INVISIBLE);

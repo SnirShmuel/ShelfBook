@@ -135,7 +135,7 @@ public class RegisterFragment extends Fragment {
                             pd.dismiss();
                             User user = new User(mAuth.getCurrentUser().getUid(),username,password,name,email,city,phone, System.currentTimeMillis());
                             LoginUser.getUser().setUserData(user);
-                            Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_myProfileFragment);
+                            Navigation.findNavController(getView()).navigate(R.id.action_registerFragment_to_nav_books_list);
                         }
                     }
                 });

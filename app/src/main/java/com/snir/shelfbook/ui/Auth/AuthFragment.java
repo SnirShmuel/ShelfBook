@@ -39,7 +39,7 @@ public class AuthFragment extends Fragment {
                 public void onComplete(User data) {
                     LoginUser.getUser().setUserData(data);
                     //nav to home page of application
-                    Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_myProfileFragment);
+                    Navigation.findNavController(getView()).navigate(R.id.action_authFragment_to_nav_books_list);
                 }
             });
 
