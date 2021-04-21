@@ -9,6 +9,7 @@ import androidx.navigation.Navigation;
 
 import android.os.Handler;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.snir.shelfbook.R;
@@ -49,6 +51,9 @@ public class MyProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_profile, container, false);
 
+        FloatingActionButton fab = getActivity().findViewById(R.id.fab);
+        fab.setVisibility(View.INVISIBLE);
+
         user = LoginUser.getUser().userData;
 
         username = view.findViewById(R.id.profile_username_edit);
@@ -76,16 +81,17 @@ public class MyProfileFragment extends Fragment {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(username.toString()) || TextUtils.isEmpty(name.toString()) ||
-                        TextUtils.isEmpty(email.toString()) || TextUtils.isEmpty(password.toString()) ||
-                        TextUtils.isEmpty(city.toString() )|| TextUtils.isEmpty(phone.toString())) {
+                Log.i("email",email.getText().toString());
+                if (TextUtils.isEmpty(username.getText().toString()) || TextUtils.isEmpty(name.getText().toString()) ||
+                        TextUtils.isEmpty(email.getText().toString()) || TextUtils.isEmpty(password.getText().toString()) ||
+                        TextUtils.isEmpty(city.getText().toString() )|| TextUtils.isEmpty(phone.getText().toString())) {
                     Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
-                } else if (password.length() < 6) {
-                    Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
+                } else if (password.getText().length() < 6) {
+                    Toast.makeText(getContext(), "Password have to be at least 6 characters", Toast.LENGTH_SHORT).show();
 
-                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.toString()).matches()){
+                } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()){
                     Toast.makeText(getContext(), "Email address is invalid!", Toast.LENGTH_SHORT).show();
-                } else if(phone.length() != 10){
+                } else if(phone.getText().length() != 10){
                     Toast.makeText(getContext(), "Phone number have to be 10 digits", Toast.LENGTH_SHORT).show();
                 }else {
                     pd.setMessage("Update Details...");
