@@ -14,7 +14,7 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="0dp"
         android:shadowColor="#00bcd3"
         android:text="Login"
         android:textColor="#00bcd3"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
-        android:backgroundTint="#1dd577"
+        android:backgroundTint="@color/purple_500"
         android:padding="10dp"
         android:text="LOGIN" />
 

@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#272E34"
         app:layout_constraintBottom_toTopOf="@+id/bookAdd_descEt"
         app:layout_constraintTop_toTopOf="@+id/bookAdd_descEt"
         tools:context=".ui.bookadd.BookAddFragment">
@@ -35,6 +36,7 @@
                 android:hint="Enter book name here"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -47,6 +49,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Book Name:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toStartOf="@+id/bookAdd_bookNameEt"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,6 +66,7 @@
                 android:hint="Enter book author here"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookAdd_bookNameEt" />
@@ -74,6 +79,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Author:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toStartOf="@+id/bookAdd_bookAuthorEt"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +94,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Genre:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toStartOf="@+id/bookAdd_GenreEt"
                 app:layout_constraintStart_toStartOf="parent"
@@ -103,6 +112,7 @@
                 android:hint="Enter book condition here"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -116,10 +126,12 @@
                 android:layout_marginEnd="8dp"
                 android:text="Condition:"
                 android:textAlignment="center"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toStartOf="@+id/bookAdd_CondEt"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline5" />
+                app:layout_constraintTop_toTopOf="@+id/guideline5"
+                android:textColor="@color/white" />
 
             <EditText
                 android:id="@+id/bookAdd_GenreEt"
@@ -131,6 +143,7 @@
                 android:hint="Enter book genre here"
                 android:inputType="textPersonName"
                 android:textAlignment="center"
+                android:textColorHint="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookAdd_bookAuthorEt" />
@@ -192,6 +205,8 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -226,9 +241,11 @@
 
             <Button
                 android:id="@+id/bookAdd_saveBtn"
-                android:layout_width="166dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="24dp"
                 android:text="Save"
                 app:layout_constraintBottom_toBottomOf="parent"

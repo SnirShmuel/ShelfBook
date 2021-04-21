@@ -20,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -40,6 +41,7 @@ public class bookEditFragment extends Fragment {
     EditText bookAuthorEv;
     EditText bookGenreEv;
     EditText bookConditionEv;
+    CheckBox bookIsGivenCb;
     EditText bookDescriptionEv;
     ImageButton bookImgBtn;
     Button saveBtn;
@@ -63,6 +65,7 @@ public class bookEditFragment extends Fragment {
         bookAuthorEv = view.findViewById(R.id.bookEdit_authorEv);
         bookGenreEv = view.findViewById(R.id.bookEdit_GenreEv);
         bookConditionEv = view.findViewById(R.id.bookEdit_conditionEv);
+        bookIsGivenCb = view.findViewById(R.id.bookEdit_givenCb);
         bookDescriptionEv = view.findViewById(R.id.bookEdit_descEv);
         bookImgBtn = view.findViewById(R.id.bookEdit_imgBtn);
         saveBtn = view.findViewById(R.id.bookEdit_saveEditBtn);
@@ -91,6 +94,11 @@ public class bookEditFragment extends Fragment {
             bookAuthorEv.setText("N/A");
         else
             bookAuthorEv.setText(book.getAuthor());
+        bookIsGivenCb.setChecked(book.getGiven());
+//        if (book.getGiven())
+//            bookIsGivenCb;
+//        else
+//            bookIsGivenCb.setChecked();
 
 
 
@@ -181,6 +189,10 @@ public class bookEditFragment extends Fragment {
         if (!(bookConditionEv.getText().toString().isEmpty()) && (!bookConditionEv.getText().toString().equals(book.getBookCondition())))
             book.setBookCondition(bookConditionEv.getText().toString());
         book.setDescription(bookDescriptionEv.getText().toString());
+        if (bookIsGivenCb.isChecked())
+            book.setGiven(true);
+        else
+            book.setGiven(false);
 
         BitmapDrawable drawable = (BitmapDrawable)bookImgBtn.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

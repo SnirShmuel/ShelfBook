@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#272E34"
         tools:context=".ui.bookdetail.BookDetailsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -40,6 +41,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Book author"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
@@ -52,6 +54,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Author:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_nameTv" />
@@ -65,6 +68,7 @@
                 android:editable="false"
                 android:text="Genre:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_authorTxt" />
@@ -82,7 +86,8 @@
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/bookDetails_bookSection" />
+                app:layout_constraintTop_toBottomOf="@+id/bookDetails_bookSection"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/bookDetailes_conditionTv"
@@ -93,6 +98,7 @@
                 android:editable="true"
                 android:text="Book condition"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTv" />
@@ -106,6 +112,7 @@
                 android:editable="true"
                 android:text="Book Genre"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_authorTv" />
@@ -119,6 +126,7 @@
                 android:editable="false"
                 android:text="Condition:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetailes_genreTxt" />
@@ -148,6 +156,7 @@
                 android:editable="true"
                 android:text="Book description"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bookDetailes_imgIv"
@@ -182,6 +191,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Owner's city"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_name" />
@@ -194,6 +204,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Owner's phone"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_city" />
@@ -206,6 +217,7 @@
                 android:layout_marginEnd="16dp"
                 android:text="Owner's name"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_ownerSection" />
@@ -219,6 +231,7 @@
                 android:layout_marginBottom="32dp"
                 android:text="Owner's email"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -232,6 +245,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Name:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_ownerSection" />
@@ -244,6 +258,7 @@
                 android:layout_marginTop="24dp"
                 android:text="City:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_nameTxt" />
@@ -256,6 +271,7 @@
                 android:layout_marginTop="24dp"
                 android:text="Phone:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/bookDetails_owner_cityTxt" />
@@ -269,6 +285,7 @@
                 android:layout_marginBottom="32dp"
                 android:text="Email:"
                 android:textAlignment="center"
+                android:textColor="@color/white"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -288,9 +305,11 @@
 
             <Button
                 android:id="@+id/bookDetailes_deleteBook"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:text="Delete book"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -301,9 +320,11 @@
 
             <Button
                 android:id="@+id/bookDetailes_editBtn"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:text="Edit book"
                 app:layout_constraintBottom_toBottomOf="parent"

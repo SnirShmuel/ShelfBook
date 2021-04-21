@@ -103,7 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15sp"
-        android:backgroundTint="#1dd577"
+        android:backgroundTint="@color/purple_500"
         android:padding="10dp"
         android:text="REGISTER" />
 

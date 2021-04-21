@@ -120,14 +120,14 @@ public class BookModel {
     }
 
     public void refreshMyBookList(String userId,final CompListener listener){
-        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
+//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
         BookFirebase.getBooksByOwnerId(userId, new Listener<List<Book>>() {
             @Override
             public void onComplete(List<Book> data) {
                 for (Book book: data){
                     BookSql.addBook(book,null);
                 }
-                sp.edit().commit();
+//                sp.edit().commit();
                 if (listener != null)
                     listener.onComplete();
             }

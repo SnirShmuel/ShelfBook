@@ -30,11 +30,11 @@
 
         <TextView
             android:id="@+id/textView5"
-            android:layout_width="169dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:shadowColor="#eeeeee"
-            android:text="Get new book to your shelf"
+            android:text="Get new BOOK on your SHELF"
             android:textColor="#eeeeee"
             android:textColorHighlight="#eeeeee"
             android:textColorHint="#eeeeee"
@@ -56,7 +56,7 @@
             android:id="@+id/login_btn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:backgroundTint="#1dd577"
+            android:backgroundTint="@color/purple_500"
             android:text="Log In"
             android:textAllCaps="false" />
 
@@ -68,7 +68,7 @@
             android:id="@+id/registerBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:backgroundTint="#1dd577"
+            android:backgroundTint="@color/purple_500"
             android:text="Register"
             android:textAllCaps="false" />
 

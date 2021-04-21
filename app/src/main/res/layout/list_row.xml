@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#808080"
-    android:backgroundTint="#717171">
+    android:background="#272E34">
 
     <ImageView
         android:id="@+id/listRow_iv"

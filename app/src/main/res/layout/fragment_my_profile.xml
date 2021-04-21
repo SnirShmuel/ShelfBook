@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#272E34"
     tools:context=".ui.profilePage.MyProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -18,7 +19,8 @@
             android:layout_marginTop="80dp"
             android:layout_marginBottom="20dp"
             android:text="My profile"
-            android:textSize="24sp"
+            android:textColor="#00BCD3"
+            android:textSize="35sp"
             app:layout_constraintBottom_toTopOf="@+id/profile_username_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +34,7 @@
             android:layout_marginTop="140dp"
             android:layout_marginEnd="15dp"
             android:text="User name"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_username_edit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_title" />
 
@@ -54,6 +58,7 @@
             android:layout_marginTop="35dp"
             android:layout_marginEnd="7dp"
             android:text="password"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_password_edit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_username_text" />
@@ -64,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_username_edit" />
 
@@ -75,6 +81,7 @@
             android:layout_marginTop="38dp"
             android:layout_marginEnd="15dp"
             android:text="Name"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_name_edit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -86,6 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_password_edit" />
 
@@ -96,6 +104,7 @@
             android:layout_marginStart="68dp"
             android:layout_marginTop="38dp"
             android:text="Email"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_name_text" />
 
@@ -105,6 +114,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_name_edit" />
 
@@ -115,6 +125,7 @@
             android:layout_marginStart="68dp"
             android:layout_marginTop="28dp"
             android:text="City"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_email_text" />
 
@@ -124,6 +135,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_email_edit" />
 
@@ -134,6 +146,7 @@
             android:layout_marginStart="68dp"
             android:layout_marginTop="34dp"
             android:text="Phone"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_city_text" />
 
@@ -143,25 +156,30 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="100dp"
+            android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/profile_city_edit" />
 
         <Button
             android:id="@+id/profile_edit_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
             android:text="Edit Details"
+            app:layout_constraintBottom_toBottomOf="@+id/profile_logout_button"
             app:layout_constraintEnd_toStartOf="@+id/profile_logout_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_phone_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_logout_button" />
 
         <Button
             android:id="@+id/profile_logout_button"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="16dp"
             android:text="@string/logout"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
