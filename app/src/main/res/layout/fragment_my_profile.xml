@@ -31,14 +31,14 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="140dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="15dp"
             android:text="User name"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_username_edit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/profile_username_edit" />
 
         <EditText
             android:id="@+id/profile_username_edit"
@@ -55,13 +55,13 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="7dp"
             android:text="password"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_password_edit"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_username_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_password_edit" />
 
         <EditText
             android:id="@+id/profile_password_edit"
@@ -78,14 +78,14 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="15dp"
             android:text="Name"
             android:textColor="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/profile_name_edit"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_password_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_name_edit" />
 
         <EditText
             android:id="@+id/profile_name_edit"
@@ -102,11 +102,11 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="38dp"
+            android:layout_marginTop="16dp"
             android:text="Email"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_name_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_email_edit" />
 
         <EditText
             android:id="@+id/profile_email_edit"
@@ -123,11 +123,11 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="16dp"
             android:text="City"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_email_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_city_edit" />
 
         <EditText
             android:id="@+id/profile_city_edit"
@@ -144,11 +144,11 @@
             android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="68dp"
-            android:layout_marginTop="34dp"
+            android:layout_marginTop="16dp"
             android:text="Phone"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/profile_city_text" />
+            app:layout_constraintTop_toTopOf="@+id/profile_phone_edit" />
 
         <EditText
             android:id="@+id/profile_phone_edit"
