@@ -93,7 +93,7 @@ public class RegisterFragment extends Fragment {
                         TextUtils.isEmpty(txtCity) || TextUtils.isEmpty(txtPhone)) {
                     Toast.makeText(getContext(), "Empty credentials!", Toast.LENGTH_SHORT).show();
                 } else if (txtPassword.length() < 6) {
-                    Toast.makeText(getContext(), "Password too short!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Password have to be at least 6 characters", Toast.LENGTH_SHORT).show();
 
                 } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(txtEmail).matches()){
                     Toast.makeText(getContext(), "Email address is invalid!", Toast.LENGTH_SHORT).show();
