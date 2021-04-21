@@ -95,12 +95,6 @@ public class bookEditFragment extends Fragment {
         else
             bookAuthorEv.setText(book.getAuthor());
         bookIsGivenCb.setChecked(book.getGiven());
-//        if (book.getGiven())
-//            bookIsGivenCb;
-//        else
-//            bookIsGivenCb.setChecked();
-
-
 
         Picasso.get()
                 .load(book.getImageUrl())

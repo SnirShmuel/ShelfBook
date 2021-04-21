@@ -7,7 +7,7 @@ public class LoginUser {
 
     // private constructor restricted to this class itself
     private LoginUser() {
-        userData = null;
+        userData = new User();
     }
 
     private LoginUser(User user) {

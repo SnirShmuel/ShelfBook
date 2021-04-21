@@ -6,7 +6,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/myProfileFragment"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/icon_profile"
             android:title="My Profile" />
         <item
             android:id="@+id/myBooksListFragment"

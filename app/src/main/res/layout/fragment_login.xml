@@ -63,7 +63,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="New to ShelfBook? Register"
+        android:text="New in ShelfBook? Register"
         android:textColor="#eeeeee"
         android:textColorHighlight="#eeeeee"
         android:textColorHint="#eeeeee" />
