@@ -1,28 +1,15 @@
 package com.snir.shelfbook.model.book;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.util.Log;
 
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-import com.snir.shelfbook.MyApplication;
-import com.snir.shelfbook.model.AppLocalDb;
 import com.snir.shelfbook.model.user.LoginUser;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 
 public class BookModel {
@@ -76,59 +63,39 @@ public class BookModel {
     }
 
     public void refreshBookList(final CompListener listener){
-        BookSql.deleteAllBooks(new CompListener() {
-            @Override
-            public void onComplete() {
-                liveData = null;
-            }
-        });
-//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
-        BookFirebase.getAllUngivenBooks(new Listener<List<Book>>() {
+        //1. Get all new ungiven and undeleted books
+        BookFirebase.getAllBooks(new Listener<List<Book>>() {
             @Override
             public void onComplete(List<Book> data) {
                 for (Book book:data){
                     BookSql.addBook(book,null);
                 }
-//                sp.edit().commit();
                 if (listener != null)
                     listener.onComplete();
             }
         });
-
-//        //1. get local last update date
-//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
-//        Long lastUpdated = sp.getLong("lastUpdated",0);
-//        //2. get all updated record from firebase from the last update date
-//        BookFirebase.getAllBooks(lastUpdated, new Listener<List<Book>>() {
-//                    @Override
-//                    public void onComplete(List<Book> data) {
-//                        //3. insert the new updates to the local db
-//                        Long lastU = Long.valueOf(0);
-//                        for (Book book: data) {
-//                            BookSql.addBook(book,null);
-//                            if (book.getLastUpdated()>lastU){
-//                                lastU = book.getLastUpdated();
-//                            }
-//                        }
-//                        //4. update the local last update date
-//                        sp.edit().putLong("lastUpdated", lastU).commit();
-//                        //5. return the updates data to the listeners
-//                        if(listener != null){
-//                            listener.onComplete();
-//                        }
-//                    }
-//                });
+        //2. Delete 'deleted books' from localDB
+        BookFirebase.getDeletedBooks(new Listener<List<Book>>() {
+            @Override
+            public void onComplete(List<Book> data) {
+                if (!data.isEmpty()){
+                    for (Book book:data){
+                        BookSql.deleteBook(book,null);
+                    }
+                }
+                if (listener != null)
+                    listener.onComplete();
+            }
+        });
     }
 
     public void refreshMyBookList(String userId,final CompListener listener){
-//        final SharedPreferences sp = MyApplication.context.getSharedPreferences("TAG", Context.MODE_PRIVATE);
         BookFirebase.getBooksByOwnerId(userId, new Listener<List<Book>>() {
             @Override
             public void onComplete(List<Book> data) {
                 for (Book book: data){
                     BookSql.addBook(book,null);
                 }
-//                sp.edit().commit();
                 if (listener != null)
                     listener.onComplete();
             }

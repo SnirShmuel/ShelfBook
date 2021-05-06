@@ -256,9 +256,11 @@
 
             <Button
                 android:id="@+id/bookAdd_cancelBtn"
-                android:layout_width="166dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="24dp"
                 android:text="Cancel"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -35,9 +35,9 @@ public class BookFirebase {
     private static final String BOOK_COLLECTION = "books";
 
 
-    public static void getAllUngivenBooks(final BookModel.Listener<List<Book>> listener) {
+    public static void getAllBooks(final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(BOOK_COLLECTION).whereEqualTo("isGiven",false)
+        db.collection(BOOK_COLLECTION).whereEqualTo("isGiven",false).whereEqualTo("isDeleted",false)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -70,6 +70,24 @@ public class BookFirebase {
 //        });
     }
 
+    public static void getDeletedBooks(final BookModel.Listener<List<Book>> listener) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection(BOOK_COLLECTION).whereEqualTo("isDeleted",true)
+                .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                List<Book> bookData = new LinkedList<Book>();
+                if (task.isSuccessful()){
+                    for(DocumentSnapshot doc : task.getResult()){
+                        Book book = new Book();
+                        book.fromMap(doc.getData());
+                        bookData.add(book);
+                    }
+                }
+                listener.onComplete(bookData);
+            }
+        });
+    }
 
     public static void addBook(Book book, BookModel.Listener<Boolean> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -162,7 +180,7 @@ public class BookFirebase {
     }
     public static void getBooksByOwnerId(String ownerId, final BookModel.Listener<List<Book>> listener) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection(BOOK_COLLECTION).whereEqualTo("ownerId",ownerId)
+        db.collection(BOOK_COLLECTION).whereEqualTo("ownerId",ownerId).whereEqualTo("isDeleted",false)
                 .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
