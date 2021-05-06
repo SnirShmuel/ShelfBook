@@ -168,6 +168,7 @@ public class BookAddFragment extends Fragment {
         book.setBookCondition(bookConditionEt.getText().toString());
         book.setDescription(bookDescEt.getText().toString());
         book.setGiven(false);
+        book.setDeleted(false);
         book.setOwnerId(LoginUser.getUser().userData.getId());
 
         BitmapDrawable drawable = (BitmapDrawable) bookImg.getDrawable();

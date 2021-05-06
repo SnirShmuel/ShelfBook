@@ -28,6 +28,7 @@ public class Book implements Serializable {
     private String description;
     private String ownerId;
     private Boolean isGiven;
+    private Boolean isDeleted;
     private Long lastUpdated;
 
 
@@ -42,6 +43,7 @@ public class Book implements Serializable {
         result.put("description", this.getDescription());
         result.put("ownerId", this.getOwnerId());
         result.put("isGiven", this.getGiven());
+        result.put("isDeleted", this.getDeleted());
         result.put("lastUpdated", FieldValue.serverTimestamp());
         return result;
     }
@@ -56,6 +58,7 @@ public class Book implements Serializable {
         this.setDescription((String)map.get("description"));
         this.setOwnerId((String)map.get("ownerId"));
         this.setGiven((Boolean)map.get("isGiven"));
+        this.setDeleted((Boolean)map.get("isDeleted"));
         Timestamp ts = (Timestamp)map.get("lastUpdated");
         this.setLastUpdated(ts.getSeconds());
     }
@@ -139,5 +142,13 @@ public class Book implements Serializable {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Boolean getDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        isDeleted = deleted;
     }
 }

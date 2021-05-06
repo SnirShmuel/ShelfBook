@@ -10,7 +10,7 @@ import com.snir.shelfbook.model.user.User;
 import com.snir.shelfbook.model.user.UserDao;
 
 
-@Database(entities = {Book.class, User.class}, version = 9)
+@Database(entities = {Book.class, User.class}, version = 10)
 public abstract class AppLocalDbRepository extends RoomDatabase {
     public abstract BookDao bookDao();
     public abstract UserDao userDao();

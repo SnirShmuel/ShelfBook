@@ -59,13 +59,14 @@ public class BookModel {
     }
 
     public void deleteBook(Book book, Listener<Boolean> listener){
+        book.setDeleted(true);
         deleteImage(book.getId(), new Listener<Boolean>() {
             @Override
             public void onComplete(Boolean data) {
 
             }
         });
-        BookFirebase.deleteBook(book.getId(),listener);
+        BookFirebase.addBook(book,listener);
         BookSql.deleteBook(book,null);
     }
 
